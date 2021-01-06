@@ -7,60 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprites.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprites.Array.data[0]
-      value: 
-      objectReference: {fileID: 2800000, guid: f35ec0ab321364c0abb84bb5b702efc3, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprites.Array.data[1]
-      value: 
-      objectReference: {fileID: 2800000, guid: 9a36c05fb76af4afab6380c92f2af7ad, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprites.Array.data[2]
-      value: 
-      objectReference: {fileID: 2800000, guid: b89c6984e9e224639a826c015592c7af, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: monName
-      value: Charmander
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: maxHealth
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: maxEnergy
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprite
-      value: 
-      objectReference: {fileID: 2800000, guid: f35ec0ab321364c0abb84bb5b702efc3, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.data[0]
-      value: Tackle,1
-      objectReference: {fileID: 0}
     - target: {fileID: 3171170478368350561, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: m_Name
-      value: Charmeleon
+      value: Charmander
       objectReference: {fileID: 0}
     - target: {fileID: 5500082171348234927, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
@@ -166,6 +116,71 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 2800000, guid: f35ec0ab321364c0abb84bb5b702efc3, type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: 9a36c05fb76af4afab6380c92f2af7ad, type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: b89c6984e9e224639a826c015592c7af, type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: monName
+      value: Charmander
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: maxHealth
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: maxEnergy
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 2800000, guid: f35ec0ab321364c0abb84bb5b702efc3, type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.data[0]
+      value: Tackle,1
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.data[1]
+      value: Ember,1
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: currentHealth
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: currentEnergy
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}

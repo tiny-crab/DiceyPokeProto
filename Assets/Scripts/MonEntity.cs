@@ -15,12 +15,13 @@ public class MonEntity : MonoBehaviour {
     public int maxEnergy;
     public GameObject nextEvolutionPrefab;
     public List<string> learnableMovesConfig; //formatted "<MoveName>,<LevelToLearn>"
-    Dictionary<int, Move> learnableMoves = new Dictionary<int, Move>();
+    List<KeyValuePair<int, Move>> learnableMoves = new List<KeyValuePair<int, Move>>();
 
     // mon instance
     public int currentLevel = 1;
     public int currentHealth;
     public int currentEnergy;
+    public int remainingActions = 1;
     public List<Move> activeMoves;
 
     public void constructMoves() {
@@ -30,7 +31,7 @@ public class MonEntity : MonoBehaviour {
 
             var moveType = Type.GetType(moveName);
             var constructedMove = (Move) Activator.CreateInstance(moveType);
-            learnableMoves.Add(level, constructedMove);
+            learnableMoves.Add(new KeyValuePair<int, Move>(level, constructedMove));
             activeMoves = learnableMoves.Where(pair => pair.Key <= currentLevel).Select(pair => pair.Value).ToList();
         }
     }

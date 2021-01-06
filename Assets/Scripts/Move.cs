@@ -13,3 +13,11 @@ public class Tackle :  Move {
     public override int overloadCost { get { return 1; } }
     public override int overloadDamage { get { return 1; } }
 }
+
+public class Ember : Move {
+    public override string moveName { get { return "Ember"; } }
+    public override int damage { get { return 2; } }
+    public override int cost { get { return 2; } }
+    public override int overloadCost { get { return 2; } }
+    public override int overloadDamage { get { return 2; } }
+}
