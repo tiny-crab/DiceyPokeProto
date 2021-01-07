@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyObjects:
-  - {fileID: 7773702942133629046, guid: ae525ab3b2cd74b36b5974fd3c18a803, type: 3}
+  - {fileID: 7152764905674047495, guid: ce559828faf6a4ce3afc0f91175d543d, type: 3}
   - {fileID: 7432550356589718751, guid: 1a29e9be57d0c4e289dd9b57d5aacb15, type: 3}
   - {fileID: 6341574641545318721, guid: c2a24a8875fa94726bca31bad34976d0, type: 3}
   - {fileID: 3956425032636358325, guid: 90643b63fb86c4aaa8ba45de5d45dd94, type: 3}
