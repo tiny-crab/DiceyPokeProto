@@ -91,6 +91,9 @@ public class BattleSystem : MonoBehaviour{
         target.currentHealth -= moveToExecute.damage + moveToExecute.overloadDamage * overloadValue;
         attacker.currentEnergy -= moveToExecute.cost;
         attacker.remainingActions -= 1;
+        if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
+            attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
+        }
     }
 
     void switchMon(MonEntity toSwitch) {
