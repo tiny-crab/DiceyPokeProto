@@ -14,6 +14,7 @@ public class MonEntity : MonoBehaviour {
     public int maxHealth;
     public int maxEnergy;
     public GameObject nextEvolutionPrefab;
+    public int nextEvolutionLevel;
     public List<string> learnableMovesConfig; //formatted "<MoveName>,<LevelToLearn>"
     List<KeyValuePair<int, Move>> learnableMoves = new List<KeyValuePair<int, Move>>();
 
@@ -29,8 +30,7 @@ public class MonEntity : MonoBehaviour {
             var moveName = learnableMoveConfig.Split(',')[0];
             var level = int.Parse(learnableMoveConfig.Split(',')[1]);
 
-            var moveType = Type.GetType(moveName);
-            var constructedMove = (Move) Activator.CreateInstance(moveType);
+            var constructedMove = new Move().getMoveByName(moveName);
             learnableMoves.Add(new KeyValuePair<int, Move>(level, constructedMove));
             activeMoves = learnableMoves.Where(pair => pair.Key <= currentLevel).Select(pair => pair.Value).ToList();
         }
