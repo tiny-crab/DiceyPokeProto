@@ -148,7 +148,7 @@ public class BattleSystem : MonoBehaviour{
             );
 
             for (var i = 0; i < activeMon.activeMoves.Count; i++) {
-                moveButtons[i].transform.Find("MoveName").GetComponent<Text>().text = activeMon.activeMoves[i].moveName;
+                moveButtons[i].transform.Find("MoveName").GetComponent<Text>().text = activeMon.activeMoves[i].name;
                 moveButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {activeMon.activeMoves[i].cost}";
                 moveButtons[i].SetActive(true);
             }
