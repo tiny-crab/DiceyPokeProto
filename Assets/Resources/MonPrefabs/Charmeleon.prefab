@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5180264492299276567
+--- !u!1001 &5711122293045649766
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3171170478368350561, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: m_Name
-      value: Charmander
+      value: Charmeleon
       objectReference: {fileID: 0}
     - target: {fileID: 5500082171348234927, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
@@ -119,49 +119,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
-      propertyPath: sprites.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
       propertyPath: learnableMovesConfig.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
-      propertyPath: sprites.Array.data[0]
-      value: 
-      objectReference: {fileID: 2800000, guid: f35ec0ab321364c0abb84bb5b702efc3, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprites.Array.data[1]
+      propertyPath: sprite
       value: 
       objectReference: {fileID: 2800000, guid: 9a36c05fb76af4afab6380c92f2af7ad, type: 3}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
-      propertyPath: sprites.Array.data[2]
-      value: 
-      objectReference: {fileID: 2800000, guid: b89c6984e9e224639a826c015592c7af, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
       propertyPath: monName
-      value: Charmander
+      value: Charmeleon
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: maxHealth
-      value: 14
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: maxEnergy
-      value: 5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
-      propertyPath: sprite
+      propertyPath: nextEvolutionPrefab
       value: 
-      objectReference: {fileID: 2800000, guid: f35ec0ab321364c0abb84bb5b702efc3, type: 3}
+      objectReference: {fileID: 1701151438455239894, guid: 3204400dfa00148a8905bb1346a638a4,
+        type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionLevel
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: learnableMovesConfig.Array.data[0]
@@ -170,28 +161,7 @@ PrefabInstance:
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: learnableMovesConfig.Array.data[1]
-      value: Ember,1
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: currentHealth
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: currentEnergy
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: nextEvolutionPrefab
-      value: 
-      objectReference: {fileID: 7152764905674047495, guid: ce559828faf6a4ce3afc0f91175d543d,
-        type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: nextEvolutionLevel
-      value: 2
+      value: Tackle,1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}
