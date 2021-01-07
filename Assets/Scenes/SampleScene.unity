@@ -271,8 +271,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partyObjects:
   - {fileID: 7773702942133629046, guid: ae525ab3b2cd74b36b5974fd3c18a803, type: 3}
+  - {fileID: 7432550356589718751, guid: 1a29e9be57d0c4e289dd9b57d5aacb15, type: 3}
+  - {fileID: 6341574641545318721, guid: c2a24a8875fa94726bca31bad34976d0, type: 3}
+  - {fileID: 3956425032636358325, guid: 90643b63fb86c4aaa8ba45de5d45dd94, type: 3}
+  - {fileID: 7171365867940331485, guid: b1587252ea9e14adeb1b56548931c3b0, type: 3}
+  - {fileID: 5420849959431242359, guid: f73fbc3b4137a499090f0a16374e906e, type: 3}
   partyMons: []
   activeMon: {fileID: 0}
+  enemyPartyObjects: []
+  enemyParty: []
+  enemyMon: {fileID: 0}
 --- !u!224 &98180393
 RectTransform:
   m_ObjectHideFlags: 0

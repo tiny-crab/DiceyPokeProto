@@ -21,7 +21,11 @@ public class BattleSystem : MonoBehaviour{
         battleMenu = new BattleMenuUI();
         battleMenu.populateMenu();
         partyMons = partyObjects.Select(monDef => monDef.GetComponent<MonEntity>()).ToList();
-        partyMons.ForEach(mon => mon.constructMoves());
+        partyMons.ForEach(mon => {
+            mon.constructMoves();
+            mon.currentHealth = mon.maxHealth;
+        });
+        battleMenu.updateLineup(partyMons);
         activeMon = partyMons.First();
         var randomMonPool = new List<string>() {"Beldum", "Charmander", "Croagunk", "Sewaddle", "Shinx", "Tympole"};
         enemyParty.Add(Resources
@@ -33,7 +37,6 @@ public class BattleSystem : MonoBehaviour{
         enemyMon = enemyParty.First();
 
         // ready mons
-        activeMon.currentHealth = activeMon.maxHealth;
         activeMon.currentEnergy = generateEnergy(activeMon);
 
         enemyMon.currentHealth = enemyMon.maxHealth;
@@ -53,6 +56,14 @@ public class BattleSystem : MonoBehaviour{
             overloadGroup.Value[1].GetComponent<Button>().onClick.AddListener(
                 delegate{battleMenu.updateOverloadValue(activeMon, overloadGroup.Key, false, copyvar);}
             );
+        }
+
+        for (var i = 0; i < partyMons.Count; i++) {
+            var copyvar = i; // needed to save i index in lambda delegation
+            battleMenu.partySlots[copyvar].GetComponent<Button>()
+                .onClick.AddListener(
+                    delegate {switchMon(partyMons[copyvar]);}
+                );
         }
     }
 
@@ -82,6 +93,13 @@ public class BattleSystem : MonoBehaviour{
         attacker.remainingActions -= 1;
     }
 
+    void switchMon(MonEntity toSwitch) {
+        if (activeMon != toSwitch) {
+            activeMon = toSwitch;
+            endPlayerTurn();
+        }
+    }
+
     void endPlayerTurn() {
 
         // do AI turn here
@@ -98,6 +116,8 @@ public class BattleSystem : MonoBehaviour{
         public GameObject playerMon;
         public List<GameObject> moveButtons;
         public Dictionary<GameObject, List<GameObject>> overloadGroups = new Dictionary<GameObject, List<GameObject>>();
+        public GameObject lineup;
+        public List<GameObject> partySlots;
 
         public GameObject enemyMon;
 
@@ -113,6 +133,10 @@ public class BattleSystem : MonoBehaviour{
                     moveButton.transform.Find("OverloadDown").gameObject
                 }
             ));
+            lineup = GameObject.Find("Lineup");
+            partySlots = Enumerable.Range(1,6).Select(number =>
+                lineup.transform.Find($"TeamMember{number}").gameObject
+            ).ToList();
         }
 
         public void updatePlayerMon(MonEntity activeMon) {
@@ -126,6 +150,7 @@ public class BattleSystem : MonoBehaviour{
             for (var i = 0; i < activeMon.activeMoves.Count; i++) {
                 moveButtons[i].transform.Find("MoveName").GetComponent<Text>().text = activeMon.activeMoves[i].moveName;
                 moveButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {activeMon.activeMoves[i].cost}";
+                moveButtons[i].SetActive(true);
             }
 
             for (var i = activeMon.activeMoves.Count; i < 4; i++) {
@@ -154,7 +179,7 @@ public class BattleSystem : MonoBehaviour{
             var healthBar = enemyMon.transform.Find("HealthBar").gameObject;
             var healthNumber = healthBar.transform.Find("NumberDisplay").gameObject;
             healthNumber.GetComponent<Text>().text = $"Health: {enemy.currentHealth}";
-            healthBar.GetComponent<Image>().fillAmount = (float) enemy.currentEnergy / (float) enemy.maxEnergy;
+            healthBar.GetComponent<Image>().fillAmount = (float) enemy.currentHealth / (float) enemy.maxHealth;
         }
 
         public void updateOverloadValue(MonEntity activeMon, GameObject overload, bool up, int moveIndex) {
@@ -168,6 +193,21 @@ public class BattleSystem : MonoBehaviour{
             if (!up && overloadValueInt > 0) { overloadValueInt--; }
 
             overloadValueText.text = overloadValueInt.ToString();
+        }
+
+        public void updateLineup(List<MonEntity> party) {
+            for (int i = 0; i < party.Count; i++ ) {
+                partySlots[i].GetComponent<Image>().sprite = Sprite.Create(
+                    party[i].sprite,
+                    new Rect(0.0f, 0.0f, party[i].sprite.width, party[i].sprite.height),
+                    new Vector2(0.5f, 0.5f),
+                    100.0f
+                );
+            }
+
+            for (var i = party.Count; i < 6; i++) {
+                partySlots[i].SetActive(false);
+            }
         }
     }
 }
