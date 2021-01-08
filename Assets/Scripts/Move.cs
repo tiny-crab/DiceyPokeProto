@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Linq;
+using System;
 
 public class Move {
     public static Move Tackle = new Move(
@@ -13,7 +14,16 @@ public class Move {
         name:"Flamethrower", damage:4, cost:3, overloadCost:2, overloadDamage:1
     );
     public static Move PoisonSting = new Move(
-        name:"PoisonSting", damage:1, cost:2, overloadCost:2
+        name:"Poison Sting", damage:1, cost:2, overloadCost:1, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            target.poisonStack += 1 + overloadValue;
+        }
+    );
+    public static Move PoisonJab = new Move(
+        name:"Poison Jab", damage:0, cost:3, overloadCost:2, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            target.currentHealth -= target.poisonStack;
+        }
     );
 
     public Move getMoveByName(string moveName) {
@@ -32,6 +42,8 @@ public class Move {
     public int overloadDamage;
     public int evolveThreshold;
     public string evolvedMoveName;
+    public Action<MonEntity, MonEntity, int> extraEffects;
+
 
     public Move(
         string name="",
@@ -40,7 +52,8 @@ public class Move {
         int overloadCost=0,
         int overloadDamage=0,
         int evolveThreshold=0,
-        string evolvedMoveName=""
+        string evolvedMoveName="",
+        Action<MonEntity, MonEntity, int> extraEffects=null
     ) {
         this.name = name;
         this.damage = damage;
@@ -49,5 +62,6 @@ public class Move {
         this.overloadDamage = overloadDamage;
         this.evolveThreshold = evolveThreshold;
         this.evolvedMoveName = evolvedMoveName;
+        this.extraEffects = extraEffects;
     }
 }

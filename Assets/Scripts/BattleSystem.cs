@@ -37,7 +37,7 @@ public class BattleSystem : MonoBehaviour{
         enemyMon = enemyParty.First();
 
         // ready mons
-        activeMon.currentEnergy = generateEnergy(activeMon);
+        activeMon.currentEnergy = activeMon.generateEnergy();
 
         enemyMon.currentHealth = enemyMon.maxHealth;
 
@@ -80,17 +80,18 @@ public class BattleSystem : MonoBehaviour{
         }
     }
 
-    int generateEnergy(MonEntity mon) {
-        var bottomBound = Mathf.FloorToInt(mon.maxEnergy / 2);
-        return new System.Random().Next(bottomBound, mon.maxEnergy + 1);
-    }
-
     void doMove(MonEntity attacker, MonEntity target, Move moveToExecute) {
         var moveIndex = attacker.activeMoves.IndexOf(moveToExecute);
         var overloadValue = int.Parse(battleMenu.overloadGroups.ToList()[moveIndex].Key.transform.Find("Value").GetComponent<Text>().text);
+
         target.currentHealth -= moveToExecute.damage + moveToExecute.overloadDamage * overloadValue;
+        if (moveToExecute.extraEffects != null) {
+            moveToExecute.extraEffects(attacker, target, overloadValue);
+        }
+
         attacker.currentEnergy -= moveToExecute.cost;
         attacker.remainingActions -= 1;
+
         if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
             attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
         }
@@ -106,11 +107,12 @@ public class BattleSystem : MonoBehaviour{
     void endPlayerTurn() {
 
         // do AI turn here
+        enemyMon.refreshTurn();
 
         // prep for player turn again
-        activeMon.currentEnergy = generateEnergy(activeMon);
+
         battleMenu.overloadGroups.ToList().ForEach(pair => pair.Key.transform.Find("Value").GetComponent<Text>().text = "0");
-        activeMon.remainingActions = 1;
+        activeMon.refreshTurn();
     }
 
     public class BattleMenuUI {

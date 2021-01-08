@@ -25,6 +25,9 @@ public class MonEntity : MonoBehaviour {
     public int remainingActions = 1;
     public List<Move> activeMoves;
 
+    // ugly status effects code :) I love it
+    public int poisonStack = 0;
+
     public void constructMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {
             var moveName = learnableMoveConfig.Split(',')[0];
@@ -36,4 +39,20 @@ public class MonEntity : MonoBehaviour {
         }
     }
 
+    public int generateEnergy() {
+        var bottomBound = Mathf.FloorToInt(maxEnergy / 2);
+        return new System.Random().Next(bottomBound, maxEnergy + 1);
+    }
+
+    public void refreshTurn() {
+
+        if (poisonStack > 0) {
+            Debug.Log($"{monName} poisoned {poisonStack} time(s)");
+            currentHealth -= Mathf.CeilToInt(0.05f * maxHealth) * poisonStack;
+            poisonStack--;
+        }
+
+        currentEnergy = generateEnergy();
+        remainingActions = 1;
+    }
 }

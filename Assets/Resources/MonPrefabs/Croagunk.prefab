@@ -120,7 +120,7 @@ PrefabInstance:
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: learnableMovesConfig.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: learnableMovesConfig.Array.data[0]
-      value: Tackle,1
+      value: Poison Sting,1
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
@@ -150,12 +150,17 @@ PrefabInstance:
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: currentHealth
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: currentEnergy
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.data[1]
+      value: Poison Jab,1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}
