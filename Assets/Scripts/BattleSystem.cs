@@ -20,9 +20,10 @@ public class BattleSystem : MonoBehaviour{
         // UI setup
         battleMenu = new BattleMenuUI();
         battleMenu.populateMenu();
-        partyMons = partyObjects.Select(monDef => monDef.GetComponent<MonEntity>()).ToList();
+        partyMons = partyObjects.Select(monDef =>
+            Instantiate(monDef).GetComponent<MonEntity>()
+        ).ToList();
 
-        // TODO this is somehow persisting in the prefabs as well
         partyMons.ForEach(mon => {
             mon.constructMoves();
             mon.currentHealth = mon.maxHealth;
@@ -30,12 +31,11 @@ public class BattleSystem : MonoBehaviour{
         battleMenu.updateLineup(partyMons);
         activeMon = partyMons.First();
         var randomMonPool = new List<string>() {"Beldum", "Charmander", "Croagunk", "Sewaddle", "Shinx", "Tympole"};
-        enemyParty.Add(Resources
+        var enemyDef = Resources
             .Load<GameObject>(
                 $"MonPrefabs/{randomMonPool[new System.Random().Next(0, randomMonPool.Count)]}"
-            )
-            .GetComponent<MonEntity>()
-        );
+            );
+        enemyParty.Add(Instantiate(enemyDef).GetComponent<MonEntity>());
         enemyMon = enemyParty.First();
 
         // ready mons

@@ -175,12 +175,12 @@ PrefabInstance:
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: currentHealth
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: currentEnergy
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
