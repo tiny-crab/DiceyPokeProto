@@ -71,7 +71,9 @@ public class BattleSystem : MonoBehaviour{
         battleMenu.updatePlayerMon(activeMon);
         battleMenu.updateEnemyMon(enemyMon);
 
-        if (activeMon.remainingActions <= 0) {
+        if (activeMon.remainingActions <= 0 ||
+            activeMon.currentEnergy < activeMon.activeMoves.Select(move => move.cost).Min()
+        ) {
             endPlayerTurn();
         }
 
@@ -81,19 +83,21 @@ public class BattleSystem : MonoBehaviour{
     }
 
     void doMove(MonEntity attacker, MonEntity target, Move moveToExecute) {
-        var moveIndex = attacker.activeMoves.IndexOf(moveToExecute);
-        var overloadValue = int.Parse(battleMenu.overloadGroups.ToList()[moveIndex].Key.transform.Find("Value").GetComponent<Text>().text);
+        if (moveToExecute.cost <= attacker.currentEnergy){
+            var moveIndex = attacker.activeMoves.IndexOf(moveToExecute);
+            var overloadValue = int.Parse(battleMenu.overloadGroups.ToList()[moveIndex].Key.transform.Find("Value").GetComponent<Text>().text);
 
-        target.currentHealth -= moveToExecute.damage + moveToExecute.overloadDamage * overloadValue;
-        if (moveToExecute.extraEffects != null) {
-            moveToExecute.extraEffects(attacker, target, overloadValue);
-        }
+            target.currentHealth -= moveToExecute.damage + moveToExecute.overloadDamage * overloadValue;
+            if (moveToExecute.extraEffects != null) {
+                moveToExecute.extraEffects(attacker, target, overloadValue);
+            }
 
-        attacker.currentEnergy -= moveToExecute.cost;
-        attacker.remainingActions -= 1;
+            attacker.currentEnergy -= moveToExecute.cost;
+            attacker.remainingActions -= moveToExecute.actionCost;
 
-        if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
-            attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
+            if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
+                attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
+            }
         }
     }
 

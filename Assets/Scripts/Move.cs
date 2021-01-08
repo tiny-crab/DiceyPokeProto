@@ -6,6 +6,10 @@ public class Move {
     public static Move Tackle = new Move(
         name:"Tackle", damage:1, cost:1, overloadCost:1, overloadDamage:1
     );
+    public static Move QuickAttack = new Move(
+        name:"Quick Attack", damage:1, cost:2, actionCost:0,
+        overloadCost:2, overloadDamage:1
+    );
     public static Move Ember = new Move(
         name:"Ember", damage:2, cost:2, overloadCost:2, overloadDamage:2,
         evolveThreshold:0, evolvedMoveName:"Flamethrower"
@@ -26,6 +30,7 @@ public class Move {
         }
     );
 
+
     public Move getMoveByName(string moveName) {
         // get all static fields of current class and return a constructed move that matches
         return this.GetType()
@@ -38,6 +43,7 @@ public class Move {
     public string name;
     public int damage;
     public int cost;
+    public int actionCost;
     public int overloadCost;
     public int overloadDamage;
     public int evolveThreshold;
@@ -49,6 +55,7 @@ public class Move {
         string name="",
         int damage=0,
         int cost=0,
+        int actionCost=1,
         int overloadCost=0,
         int overloadDamage=0,
         int evolveThreshold=0,
@@ -58,6 +65,7 @@ public class Move {
         this.name = name;
         this.damage = damage;
         this.cost = cost;
+        this.actionCost = actionCost;
         this.overloadCost = overloadCost;
         this.overloadDamage = overloadDamage;
         this.evolveThreshold = evolveThreshold;
