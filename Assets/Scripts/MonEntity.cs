@@ -25,6 +25,7 @@ public class MonEntity : MonoBehaviour {
     public int remainingActions = 1;
     public List<Move> activeMoves;
     public int attackStack = 0;
+    public int defenseStack = 0;
 
     // ugly status effects code :) I love it
     public int poisonStack = 0;
@@ -43,7 +44,11 @@ public class MonEntity : MonoBehaviour {
 
     public int generateEnergy() {
         var bottomBound = Mathf.FloorToInt((maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack)) / 2);
-        var generatedEnergy = new System.Random().Next(bottomBound, maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1);
+        bottomBound = Mathf.Max(0, bottomBound + Mathf.CeilToInt((0.2f * defenseStack) * maxEnergy));
+        var generatedEnergy = new System.Random().Next(
+            minValue: Mathf.Min(bottomBound, maxEnergy),
+            maxValue: maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1
+        );
         Mathf.CeilToInt(generatedEnergy /= 1 + paralysisStack);
         return generatedEnergy;
     }

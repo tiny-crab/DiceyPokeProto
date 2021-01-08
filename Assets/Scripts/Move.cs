@@ -66,6 +66,13 @@ public class Move {
             target.currentHealth -= target.poisonStack;
         }
     );
+    public static Move IronDefense = new Move(
+        name:"Iron Defense", desc: "+1 DEF\nOverload: +1 DEF",
+        damage:0, cost:3, overloadCost:3, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            attacker.defenseStack += 1 + overloadValue;
+        }
+    );
 
 
     public Move getMoveByName(string moveName) {
