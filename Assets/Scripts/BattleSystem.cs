@@ -180,6 +180,15 @@ public class BattleSystem : MonoBehaviour{
             var energyNumber = energyBar.transform.Find("NumberDisplay").gameObject;
             energyNumber.GetComponent<Text>().text = $"Energy: {activeMon.currentEnergy}";
             energyBar.GetComponent<Image>().fillAmount = (float) activeMon.currentEnergy / (float) activeMon.maxEnergy;
+
+            var overloadBar = energyBar.transform.Find("OverloadBar").gameObject;
+            if (activeMon.currentEnergy > activeMon.maxEnergy) {
+                overloadBar.GetComponent<Image>().fillAmount =
+                    (float) (activeMon.currentEnergy - activeMon.maxEnergy) / (float) 100;
+            } else {
+                overloadBar.GetComponent<Image>().fillAmount = 0;
+            }
+
         }
 
         public void updateEnemyMon(MonEntity enemy) {
