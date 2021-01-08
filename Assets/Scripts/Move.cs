@@ -4,40 +4,65 @@ using System;
 
 public class Move {
     public static Move Tackle = new Move(
-        name:"Tackle", damage:1, cost:1, overloadCost:1, overloadDamage:1
+        name:"Tackle", desc:"1 DMG\nOverload: +1 DMG",
+        damage:1, cost:1,
+        overloadCost:1, overloadDamage:1
     );
     public static Move QuickAttack = new Move(
-        name:"Quick Attack", damage:1, cost:2, actionCost:0,
+        name:"Quick Attack", desc:"1 DMG, +1 ACT\nOverload: +1 DMG",
+        damage:1, cost:2, actionCost:0,
         overloadCost:2, overloadDamage:1
     );
+    public static Move Roar = new Move(
+        name:"Roar", desc:"+2 ATK\nOverload: +1 ATK",
+        cost: 3,
+        overloadCost: 5, overloadDamage:0, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            attacker.attackStack += 1 + overloadValue;
+        }
+    );
     public static Move Ember = new Move(
-        name:"Ember", damage:2, cost:2, overloadCost:2, overloadDamage:2,
+        name:"Ember", desc:"2 DMG \nOverload: +2 DMG",
+        damage:2, cost:2,
+        overloadCost:2, overloadDamage:2,
         evolveThreshold:0, evolvedMoveName:"Flamethrower"
     );
     public static Move Flamethrower = new Move(
-        name:"Flamethrower", damage:4, cost:3, overloadCost:2, overloadDamage:1
+        name:"Flamethrower", desc:"4 DMG \nOverload: -1 Enemy ATK",
+        damage:4, cost:3, overloadCost:8, overloadDamage:0,
+        extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            target.attackStack -= overloadValue;
+        }
     );
     public static Move DragonDance = new Move(
-        name:"Dragon Dance", cost:4, overloadCost:2, overloadDamage:0, extraEffects:
+        name:"Dragon Dance", desc: "+1 ATK\nOverload: +1 ACT",
+        cost:4, overloadCost:4, overloadDamage:0, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {
             attacker.attackStack += 1;
+            attacker.remainingActions += overloadValue;
         }
     );
     public static Move ThunderWave = new Move(
-        name:"Thunder Wave", cost: 3, overloadCost: 5, overloadDamage:0, extraEffects:
+        name:"Thunder Wave", desc: "Enemy +1 PAR\nOverload: +1 PAR",
+        cost: 3,
+        overloadCost: 5, overloadDamage:0, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {
             target.paralysisStack = 1 + overloadValue;
         }
     );
     public static Move PoisonSting = new Move(
-        name:"Poison Sting", damage:1, cost:2, overloadCost:1, extraEffects:
+        name:"Poison Sting", desc: "1 DMG & 1 POI\nOverload: +1 POI",
+        damage:1, cost:2, overloadCost:1, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {
             target.poisonStack += 1 + overloadValue;
         }
     );
     public static Move PoisonJab = new Move(
-        name:"Poison Jab", damage:0, cost:3, overloadCost:2, extraEffects:
+        name:"Poison Jab", desc: "DMG = POI\nOverload: +1 POI",
+        damage:0, cost:3, overloadCost:2, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            target.poisonStack += overloadValue;
             target.currentHealth -= target.poisonStack;
         }
     );
@@ -53,6 +78,7 @@ public class Move {
     }
 
     public string name;
+    public string desc;
     public int damage;
     public int cost;
     public int actionCost;
@@ -65,6 +91,7 @@ public class Move {
 
     public Move(
         string name="",
+        string desc="",
         int damage=0,
         int cost=0,
         int actionCost=1,
@@ -75,6 +102,7 @@ public class Move {
         Action<MonEntity, MonEntity, int> extraEffects=null
     ) {
         this.name = name;
+        this.desc = desc;
         this.damage = damage;
         this.cost = cost;
         this.actionCost = actionCost;

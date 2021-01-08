@@ -95,7 +95,7 @@ public class BattleSystem : MonoBehaviour{
                 moveToExecute.extraEffects(attacker, target, overloadValue);
             }
 
-            attacker.currentEnergy -= moveToExecute.cost;
+            attacker.currentEnergy -= moveToExecute.cost + (overloadValue * moveToExecute.overloadCost);
             attacker.remainingActions -= moveToExecute.actionCost;
 
             if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
@@ -162,6 +162,8 @@ public class BattleSystem : MonoBehaviour{
             for (var i = 0; i < activeMon.activeMoves.Count; i++) {
                 moveButtons[i].transform.Find("MoveName").GetComponent<Text>().text = activeMon.activeMoves[i].name;
                 moveButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {activeMon.activeMoves[i].cost}";
+                moveButtons[i].transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{activeMon.activeMoves[i].overloadCost}";
+                moveButtons[i].transform.Find("MoveDescToolTip").Find("Value").GetComponent<Text>().text = activeMon.activeMoves[i].desc;
                 moveButtons[i].SetActive(true);
             }
 
