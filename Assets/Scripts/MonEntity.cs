@@ -28,6 +28,7 @@ public class MonEntity : MonoBehaviour {
 
     // ugly status effects code :) I love it
     public int poisonStack = 0;
+    public int paralysisStack = 0;
 
     public void constructMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {
@@ -42,7 +43,9 @@ public class MonEntity : MonoBehaviour {
 
     public int generateEnergy() {
         var bottomBound = Mathf.FloorToInt((maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack)) / 2);
-        return new System.Random().Next(bottomBound, maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1);
+        var generatedEnergy = new System.Random().Next(bottomBound, maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1);
+        Mathf.CeilToInt(generatedEnergy /= 1 + paralysisStack);
+        return generatedEnergy;
     }
 
     public void refreshTurn() {
@@ -54,6 +57,8 @@ public class MonEntity : MonoBehaviour {
         }
 
         currentEnergy = generateEnergy();
+        paralysisStack = 0;
+
         remainingActions = 1;
     }
 }

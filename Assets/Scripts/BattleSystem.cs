@@ -40,6 +40,7 @@ public class BattleSystem : MonoBehaviour{
 
         // ready mons
         activeMon.currentEnergy = activeMon.generateEnergy();
+        enemyMon.currentEnergy = enemyMon.generateEnergy();
 
         enemyMon.currentHealth = enemyMon.maxHealth;
 
@@ -191,6 +192,11 @@ public class BattleSystem : MonoBehaviour{
             var healthNumber = healthBar.transform.Find("NumberDisplay").gameObject;
             healthNumber.GetComponent<Text>().text = $"Health: {enemy.currentHealth}";
             healthBar.GetComponent<Image>().fillAmount = (float) enemy.currentHealth / (float) enemy.maxHealth;
+
+            var energyBar = enemyMon.transform.Find("EnergyBar").gameObject;
+            var energyNumber = energyBar.transform.Find("NumberDisplay").gameObject;
+            energyNumber.GetComponent<Text>().text = $"Energy: {enemy.currentEnergy}";
+            energyBar.GetComponent<Image>().fillAmount = (float) enemy.currentEnergy / (float) enemy.maxEnergy;
         }
 
         public void updateOverloadValue(MonEntity activeMon, GameObject overload, bool up, int moveIndex) {

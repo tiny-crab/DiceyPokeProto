@@ -23,6 +23,12 @@ public class Move {
             attacker.attackStack += 1;
         }
     );
+    public static Move ThunderWave = new Move(
+        name:"Thunder Wave", cost: 3, overloadCost: 5, overloadDamage:0, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            target.paralysisStack = 1 + overloadValue;
+        }
+    );
     public static Move PoisonSting = new Move(
         name:"Poison Sting", damage:1, cost:2, overloadCost:1, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {
