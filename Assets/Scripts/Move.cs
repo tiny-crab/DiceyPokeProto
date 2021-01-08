@@ -17,6 +17,12 @@ public class Move {
     public static Move Flamethrower = new Move(
         name:"Flamethrower", damage:4, cost:3, overloadCost:2, overloadDamage:1
     );
+    public static Move DragonDance = new Move(
+        name:"Dragon Dance", cost:4, overloadCost:2, overloadDamage:0, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            attacker.attackStack += 1;
+        }
+    );
     public static Move PoisonSting = new Move(
         name:"Poison Sting", damage:1, cost:2, overloadCost:1, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {

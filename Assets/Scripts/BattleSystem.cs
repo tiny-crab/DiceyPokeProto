@@ -21,6 +21,8 @@ public class BattleSystem : MonoBehaviour{
         battleMenu = new BattleMenuUI();
         battleMenu.populateMenu();
         partyMons = partyObjects.Select(monDef => monDef.GetComponent<MonEntity>()).ToList();
+
+        // TODO this is somehow persisting in the prefabs as well
         partyMons.ForEach(mon => {
             mon.constructMoves();
             mon.currentHealth = mon.maxHealth;
