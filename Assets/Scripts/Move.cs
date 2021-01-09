@@ -17,8 +17,8 @@ public class Move {
         name:"Roar", desc:"+2 ATK\nOverload: +1 ATK",
         cost: 3,
         overloadCost: 5, overloadDamage:0, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
-            attacker.attackStack += 1 + overloadValue;
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.attackStack += 1 + overloadValue;
         }
     );
     public static Move Ember = new Move(
@@ -31,46 +31,46 @@ public class Move {
         name:"Flamethrower", desc:"4 DMG \nOverload: -1 Enemy ATK",
         damage:4, cost:3, overloadCost:8, overloadDamage:0,
         extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
             target.attackStack -= overloadValue;
         }
     );
     public static Move DragonDance = new Move(
         name:"Dragon Dance", desc: "+1 ATK\nOverload: +1 ACT",
         cost:4, overloadCost:4, overloadDamage:0, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
-            attacker.attackStack += 1;
-            attacker.remainingActions += overloadValue;
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.attackStack += 1;
+            source.remainingActions += overloadValue;
         }
     );
     public static Move ThunderWave = new Move(
         name:"Thunder Wave", desc: "Enemy +1 PAR\nOverload: +1 PAR",
         cost: 3,
         overloadCost: 5, overloadDamage:0, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
             target.paralysisStack = 1 + overloadValue;
         }
     );
     public static Move IronDefense = new Move(
         name:"Iron Defense", desc: "+1 DEF\nOverload: +1 DEF",
         damage:0, cost:3, overloadCost:3, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
-            attacker.defenseStack += 1 + overloadValue;
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.defenseStack += 1 + overloadValue;
         }
     );
     public static Move MagnetRise = new Move(
         name:"Magnet Rise", desc: "+1 DODG\nOverload: +1 DODG",
         cost: 5,
         overloadCost: 10, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
-            attacker.dodgeStack = 1 + overloadValue;
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.dodgeStack = 1 + overloadValue;
         }
     );
     public static Move Confusion = new Move(
         name:"Confusion", desc: "Enemy CONF\nOverload: +1 CONF",
         cost: 5,
         overloadCost: 15, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
             for (var i = 0; i < overloadValue + 1; i++) {
                 target.confuse();
             }
@@ -79,14 +79,14 @@ public class Move {
     public static Move PoisonSting = new Move(
         name:"Poison Sting", desc: "1 DMG & 1 POI\nOverload: +1 POI",
         damage:1, cost:2, overloadCost:1, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
             target.poisonStack += 1 + overloadValue;
         }
     );
     public static Move PoisonJab = new Move(
         name:"Poison Jab", desc: "DMG = POI\nOverload: +1 POI",
         damage:0, cost:3, overloadCost:2, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
             target.poisonStack += overloadValue;
             target.currentHealth -= target.poisonStack;
         }
@@ -94,18 +94,18 @@ public class Move {
     public static Move Taunt = new Move(
         name:"Taunt", desc: "+1 ATK, Enemy +1 CONF\nOverload: +1 ACT",
         damage:0, cost:6, overloadCost:10, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
             target.confuse();
-            attacker.attackStack++;
-            attacker.remainingActions += overloadValue;
+            source.attackStack++;
+            source.remainingActions += overloadValue;
         }
     );
     public static Move Aquaring = new Move(
         name:"Aqua Ring", desc: "+HP for Duration\nOverload: +1 HP per turn",
         damage:0, cost:3, overloadCost:8, extraEffects:
-        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
-            attacker.healthStack += 1 + overloadValue;
-            attacker.healthRegenDuration = attacker.maxHealthRegenDuration;
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.healthStack += 1 + overloadValue;
+            source.healthRegenDuration = source.maxHealthRegenDuration;
         }
     );
 
