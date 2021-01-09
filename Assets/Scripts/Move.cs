@@ -59,6 +59,16 @@ public class Move {
             attacker.dodgeStack = 1 + overloadValue;
         }
     );
+    public static Move Confusion = new Move(
+        name:"Confusion", desc: "Enemy CONF\nOverload: +1 CONF",
+        cost: 5,
+        overloadCost: 15, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            for (var i = 0; i < overloadValue + 1; i++) {
+                target.confuse();
+            }
+        }
+    );
     public static Move PoisonSting = new Move(
         name:"Poison Sting", desc: "1 DMG & 1 POI\nOverload: +1 POI",
         damage:1, cost:2, overloadCost:1, extraEffects:

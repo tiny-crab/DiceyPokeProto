@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 using UnityEngine;
 
@@ -31,6 +30,17 @@ public class MonEntity : MonoBehaviour {
     public int poisonStack = 0;
     public int paralysisStack = 0;
     public int dodgeStack = 0;
+    public void confuse() {
+        var stacks = this.GetType()
+                .GetFields().ToList()
+                .Where(field => field.Name == "attackStack" || field.Name == "defenseStack")
+                .Where(field => (int) field.GetValue(this) > 0)
+                .ToList();
+
+        if (stacks.Count > 0) {
+            stacks[new System.Random().Next(0, stacks.Count)].SetValue(this, 0);
+        }
+    }
 
     public void constructMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {
@@ -58,7 +68,6 @@ public class MonEntity : MonoBehaviour {
     }
 
     public void refreshTurn() {
-
         if (poisonStack > 0) {
             Debug.Log($"{monName} poisoned {poisonStack} time(s)");
             currentHealth -= Mathf.CeilToInt(0.05f * maxHealth) * poisonStack;
