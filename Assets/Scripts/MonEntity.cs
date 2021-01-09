@@ -30,6 +30,7 @@ public class MonEntity : MonoBehaviour {
     // ugly status effects code :) I love it
     public int poisonStack = 0;
     public int paralysisStack = 0;
+    public int dodgeStack = 0;
 
     public void constructMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {

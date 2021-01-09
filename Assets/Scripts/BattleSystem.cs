@@ -92,17 +92,23 @@ public class BattleSystem : MonoBehaviour{
             var moveIndex = attacker.activeMoves.IndexOf(moveToExecute);
             var overloadValue = int.Parse(battleMenu.overloadGroups.ToList()[moveIndex].Key.transform.Find("Value").GetComponent<Text>().text);
 
-            target.currentHealth -= moveToExecute.damage + moveToExecute.overloadDamage * overloadValue;
-            if (moveToExecute.extraEffects != null) {
-                moveToExecute.extraEffects(attacker, target, overloadValue);
+            if (target.dodgeStack == 0) {
+                target.currentHealth -= moveToExecute.damage + moveToExecute.overloadDamage * overloadValue;
+                // TODO if a move does negative effects to target, and positive effects to an attacker simultaneously,
+                // should the positive effects still be applied if the target dodges the attack?
+                if (moveToExecute.extraEffects != null) {
+                    moveToExecute.extraEffects(attacker, target, overloadValue);
+                }
+                // don't evolve move if it doesn't hit
+                if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
+                    attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
+                }
+            } else {
+                target.dodgeStack--;
             }
 
             attacker.currentEnergy -= moveToExecute.cost + (overloadValue * moveToExecute.overloadCost);
             attacker.remainingActions -= moveToExecute.actionCost;
-
-            if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
-                attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
-            }
         }
     }
 

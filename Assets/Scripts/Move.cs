@@ -51,6 +51,14 @@ public class Move {
             target.paralysisStack = 1 + overloadValue;
         }
     );
+    public static Move MagnetRise = new Move(
+        name:"Magnet Rise", desc: "+1 DODG\nOverload: +1 DODG",
+        cost: 5,
+        overloadCost: 10, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            attacker.dodgeStack = 1 + overloadValue;
+        }
+    );
     public static Move PoisonSting = new Move(
         name:"Poison Sting", desc: "1 DMG & 1 POI\nOverload: +1 POI",
         damage:1, cost:2, overloadCost:1, extraEffects:
