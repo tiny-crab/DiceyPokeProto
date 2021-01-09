@@ -46,6 +46,7 @@ public class MonEntity : MonoBehaviour {
     }
     public int healthRegenDuration = 0;
     public int healthStack = 0;
+    public int actionStack = 0;
 
     public void constructMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {
@@ -92,7 +93,8 @@ public class MonEntity : MonoBehaviour {
         currentEnergy = generateEnergy();
         paralysisStack = 0;
 
-        remainingActions = 1;
+        remainingActions = 1 + actionStack;
+        actionStack = 0;
     }
 
     public void switchRefresh() {

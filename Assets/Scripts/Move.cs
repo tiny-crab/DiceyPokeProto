@@ -108,11 +108,30 @@ public class Move {
         }
     );
     public static Move Aquaring = new Move(
-        name:"Aqua Ring", desc: "+HP for Duration\nOverload: +1 HP per turn",
+        name:"Aqua Ring", desc: "+HP for Duration\nOverload: +1 HP over duration",
         damage:0, cost:3, overloadCost:8, extraEffects:
         delegate(MonEntity source, MonEntity target, int overloadValue) {
             source.healthStack += 1 + overloadValue;
             source.healthRegenDuration = source.maxHealthRegenDuration;
+        }
+    );
+    public static Move RainDance = new Move(
+        name:"Rain Dance", desc: "+1 DEF\nOverload: +HP",
+        damage:0, cost:5, overloadCost:6, extraEffects:
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.defenseStack++;
+            var targetHealth = source.currentHealth + (int) Math.Ceiling(
+                (source.maxHealth * 0.2)
+            ) * overloadValue;
+            source.currentHealth = Math.Min(targetHealth, source.maxHealth);
+        }
+    );
+    public static Move Endure = new Move(
+        name:"Endure", desc: "+2 ACT next turn\nOverload: +1 DEF",
+        damage:0, cost:3, overloadCost:7, extraEffects:
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            source.defenseStack += overloadValue;
+            source.actionStack += 2;
         }
     );
 
