@@ -114,6 +114,7 @@ public class BattleSystem : MonoBehaviour{
     void switchMon(MonEntity toSwitch) {
         if (activeMon != toSwitch) {
             activeMon = toSwitch;
+            toSwitch.switchRefresh();
             endPlayerTurn();
         }
     }

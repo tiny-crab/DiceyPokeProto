@@ -64,16 +64,14 @@ public class MonEntity : MonoBehaviour {
 
         // guarantee a mon has enough energy for their cheapest move
         bottomBound = Mathf.Max(bottomBound, activeMoves.Select(move => move.cost).Min());
-        var generatedEnergy = new System.Random().Next(
-            minValue: Mathf.Min(bottomBound, maxEnergy),
-            maxValue: maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1
-        );
+        var minBound = Mathf.Min(bottomBound, maxEnergy);
+        var maxBound =  Mathf.Max(bottomBound, maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1);
+        var generatedEnergy = new System.Random().Next(minBound, maxBound);
         Mathf.CeilToInt(generatedEnergy /= 1 + paralysisStack);
         return generatedEnergy;
     }
 
     public void refreshTurn() {
-
         if (healthRegenDuration > 0) {
             currentHealth += healthStack;
             if (currentHealth > maxHealth) {
@@ -95,5 +93,13 @@ public class MonEntity : MonoBehaviour {
         paralysisStack = 0;
 
         remainingActions = 1;
+    }
+
+    public void switchRefresh() {
+        attackStack = 0;
+        defenseStack = 0;
+        healthRegenDuration = 0;
+        healthStack = 0;
+        dodgeStack = 0;
     }
 }

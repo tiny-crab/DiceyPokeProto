@@ -37,10 +37,17 @@ public class Move {
     );
     public static Move DragonDance = new Move(
         name:"Dragon Dance", desc: "+1 ATK\nOverload: +1 ACT",
-        cost:4, overloadCost:4, overloadDamage:0, extraEffects:
+        cost:4, overloadCost:6, overloadDamage:0, extraEffects:
         delegate(MonEntity source, MonEntity target, int overloadValue) {
             source.attackStack += 1;
             source.remainingActions += overloadValue;
+        }
+    );
+    public static Move ScaryFace = new Move(
+        name:"Scary Face", desc: "Enemy -1 ATK\nOverload: Enemy -1 ATK",
+        cost:4, overloadCost:8, overloadDamage:0, extraEffects:
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            target.attackStack -= 1 + overloadValue;
         }
     );
     public static Move ThunderWave = new Move(
