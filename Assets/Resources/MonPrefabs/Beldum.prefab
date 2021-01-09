@@ -172,5 +172,16 @@ PrefabInstance:
       propertyPath: learnableMovesConfig.Array.data[2]
       value: Confusion,1
       objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionPrefab
+      value: 
+      objectReference: {fileID: 7307383886609008570, guid: e1478767f93254b8e95b2e1d405da000,
+        type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionLevel
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}

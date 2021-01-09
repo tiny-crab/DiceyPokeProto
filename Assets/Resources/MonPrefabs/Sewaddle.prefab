@@ -162,5 +162,16 @@ PrefabInstance:
       propertyPath: learnableMovesConfig.Array.data[1]
       value: Endure,1
       objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionPrefab
+      value: 
+      objectReference: {fileID: 8351045865495137362, guid: 963f54268773b485f8f5eeab437e7f81,
+        type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionLevel
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5415573690528189886
+--- !u!1001 &3317233480935875824
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3171170478368350561, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: m_Name
-      value: Croagunk
+      value: Luxio
       objectReference: {fileID: 0}
     - target: {fileID: 5500082171348234927, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
@@ -119,54 +119,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
-      propertyPath: learnableMovesConfig.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprite
-      value: 
-      objectReference: {fileID: 2800000, guid: 27729c08a9c0a422b887e7b180b79cf2, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
       propertyPath: monName
-      value: Croagunk
+      value: Luxio
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: maxHealth
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.data[0]
-      value: Poison Sting,1
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: maxEnergy
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: currentHealth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: currentEnergy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.data[1]
-      value: Poison Jab,1
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: nextEvolutionPrefab
       value: 
-      objectReference: {fileID: 6951114076094225680, guid: 7df0931289e3c470d98a62295727eb11,
+      objectReference: {fileID: 1212739410069436749, guid: f09580c51914643dda394f67a35fc221,
         type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionLevel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 2800000, guid: d5b68da73da794014a82f34a12a7c3aa, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}
