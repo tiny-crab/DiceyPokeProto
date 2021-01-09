@@ -51,6 +51,13 @@ public class Move {
             target.paralysisStack = 1 + overloadValue;
         }
     );
+    public static Move IronDefense = new Move(
+        name:"Iron Defense", desc: "+1 DEF\nOverload: +1 DEF",
+        damage:0, cost:3, overloadCost:3, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            attacker.defenseStack += 1 + overloadValue;
+        }
+    );
     public static Move MagnetRise = new Move(
         name:"Magnet Rise", desc: "+1 DODG\nOverload: +1 DODG",
         cost: 5,
@@ -84,13 +91,16 @@ public class Move {
             target.currentHealth -= target.poisonStack;
         }
     );
-    public static Move IronDefense = new Move(
-        name:"Iron Defense", desc: "+1 DEF\nOverload: +1 DEF",
-        damage:0, cost:3, overloadCost:3, extraEffects:
+    public static Move Taunt = new Move(
+        name:"Taunt", desc: "+1 ATK, Enemy +1 CONF\nOverload: +1 ACT",
+        damage:0, cost:6, overloadCost:10, extraEffects:
         delegate(MonEntity attacker, MonEntity target, int overloadValue) {
-            attacker.defenseStack += 1 + overloadValue;
+            target.confuse();
+            attacker.attackStack++;
+            attacker.remainingActions += overloadValue;
         }
     );
+
 
 
     public Move getMoveByName(string moveName) {

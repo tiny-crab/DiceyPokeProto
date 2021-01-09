@@ -38,7 +38,9 @@ public class MonEntity : MonoBehaviour {
                 .ToList();
 
         if (stacks.Count > 0) {
-            stacks[new System.Random().Next(0, stacks.Count)].SetValue(this, 0);
+            var randomStack = stacks[new System.Random().Next(0, stacks.Count)];
+            var currentValue = (int) randomStack.GetValue(this);
+            randomStack.SetValue(this, Mathf.CeilToInt(currentValue / 2));
         }
     }
 
