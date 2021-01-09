@@ -11,6 +11,7 @@ public class MonEntity : MonoBehaviour {
     // mon prototype
     public string monName;
     public int maxHealth;
+    public int maxHealthRegenDuration = 5;
     public int maxEnergy;
     public GameObject nextEvolutionPrefab;
     public int nextEvolutionLevel;
@@ -43,6 +44,8 @@ public class MonEntity : MonoBehaviour {
             randomStack.SetValue(this, Mathf.CeilToInt(currentValue / 2));
         }
     }
+    public int healthRegenDuration = 0;
+    public int healthStack = 0;
 
     public void constructMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {
@@ -70,6 +73,18 @@ public class MonEntity : MonoBehaviour {
     }
 
     public void refreshTurn() {
+
+        if (healthRegenDuration > 0) {
+            currentHealth += healthStack;
+            if (currentHealth > maxHealth) {
+                currentHealth = maxHealth;
+            }
+            healthRegenDuration--;
+            if (healthRegenDuration == 0) {
+                healthStack = 0;
+            }
+        }
+
         if (poisonStack > 0) {
             Debug.Log($"{monName} poisoned {poisonStack} time(s)");
             currentHealth -= Mathf.CeilToInt(0.05f * maxHealth) * poisonStack;

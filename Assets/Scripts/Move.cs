@@ -100,8 +100,14 @@ public class Move {
             attacker.remainingActions += overloadValue;
         }
     );
-
-
+    public static Move Aquaring = new Move(
+        name:"Aqua Ring", desc: "+HP for Duration\nOverload: +1 HP per turn",
+        damage:0, cost:3, overloadCost:8, extraEffects:
+        delegate(MonEntity attacker, MonEntity target, int overloadValue) {
+            attacker.healthStack += 1 + overloadValue;
+            attacker.healthRegenDuration = attacker.maxHealthRegenDuration;
+        }
+    );
 
     public Move getMoveByName(string moveName) {
         // get all static fields of current class and return a constructed move that matches

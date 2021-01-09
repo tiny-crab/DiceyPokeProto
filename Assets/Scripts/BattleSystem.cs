@@ -181,7 +181,7 @@ public class BattleSystem : MonoBehaviour{
             var healthBar = playerMon.transform.Find("HealthBar").gameObject;
             var healthNumber = healthBar.transform.Find("NumberDisplay").gameObject;
             healthNumber.GetComponent<Text>().text = $"Health: {activeMon.currentHealth}";
-            healthBar.GetComponent<Image>().fillAmount = activeMon.currentHealth / activeMon.maxHealth;
+            healthBar.GetComponent<Image>().fillAmount = (float) activeMon.currentHealth / (float) activeMon.maxHealth;
 
             var energyBar = playerMon.transform.Find("EnergyBar").gameObject;
             var energyNumber = energyBar.transform.Find("NumberDisplay").gameObject;
