@@ -36,13 +36,15 @@ public class BattleSystem : MonoBehaviour{
                 $"MonPrefabs/{randomMonPool[new System.Random().Next(0, randomMonPool.Count)]}"
             );
         enemyParty.Add(Instantiate(enemyDef).GetComponent<MonEntity>());
+        enemyParty.ForEach(mon => {
+            mon.constructMoves();
+            mon.currentHealth = mon.maxHealth;
+        });
         enemyMon = enemyParty.First();
 
         // ready mons
         activeMon.currentEnergy = activeMon.generateEnergy();
         enemyMon.currentEnergy = enemyMon.generateEnergy();
-
-        enemyMon.currentHealth = enemyMon.maxHealth;
 
         for (var i = 0; i < activeMon.activeMoves.Count; i++) {
             var copyvar = i; // needed to save i index in lambda delegation
@@ -208,6 +210,14 @@ public class BattleSystem : MonoBehaviour{
             var energyNumber = energyBar.transform.Find("NumberDisplay").gameObject;
             energyNumber.GetComponent<Text>().text = $"Energy: {enemy.currentEnergy}";
             energyBar.GetComponent<Image>().fillAmount = (float) enemy.currentEnergy / (float) enemy.maxEnergy;
+
+            var overloadBar = energyBar.transform.Find("OverloadBar").gameObject;
+            if (enemy.currentEnergy > enemy.maxEnergy) {
+                overloadBar.GetComponent<Image>().fillAmount =
+                    (float) (enemy.currentEnergy - enemy.maxEnergy) / (float) 100;
+            } else {
+                overloadBar.GetComponent<Image>().fillAmount = 0;
+            }
         }
 
         public void updateOverloadValue(MonEntity activeMon, GameObject overload, bool up, int moveIndex) {

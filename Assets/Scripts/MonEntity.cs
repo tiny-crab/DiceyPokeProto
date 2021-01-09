@@ -43,8 +43,11 @@ public class MonEntity : MonoBehaviour {
     }
 
     public int generateEnergy() {
-        var bottomBound = Mathf.FloorToInt((maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack)) / 2);
+        var bottomBound = Mathf.FloorToInt((maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack)) / 4);
         bottomBound = Mathf.Max(0, bottomBound + Mathf.CeilToInt((0.2f * defenseStack) * maxEnergy));
+
+        // guarantee a mon has enough energy for their cheapest move
+        bottomBound = Mathf.Max(bottomBound, activeMoves.Select(move => move.cost).Min());
         var generatedEnergy = new System.Random().Next(
             minValue: Mathf.Min(bottomBound, maxEnergy),
             maxValue: maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1
