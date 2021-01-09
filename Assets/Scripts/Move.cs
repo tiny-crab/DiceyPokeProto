@@ -58,6 +58,20 @@ public class Move {
             target.paralysisStack = 1 + overloadValue;
         }
     );
+    public static Move Spark = new Move(
+        name: "Spark", desc:"2 DMG \nOverload: +2 DMG",
+        damage:2, cost:2,
+        overloadCost:2, overloadDamage:2,
+        evolveThreshold:0, evolvedMoveName:"Thunder Fang"
+    );
+    public static Move ThunderFang = new Move(
+        name: "Thunder Fang", desc:"2 DMG \nOverload: Enemy +1 PAR",
+        damage:5, cost:5,
+        overloadCost:7, overloadDamage:0, extraEffects:
+        delegate(MonEntity source, MonEntity target, int overloadValue) {
+            target.paralysisStack += overloadValue;
+        }
+    );
     public static Move IronDefense = new Move(
         name:"Iron Defense", desc: "+1 DEF\nOverload: +1 DEF",
         damage:0, cost:3, overloadCost:3, extraEffects:

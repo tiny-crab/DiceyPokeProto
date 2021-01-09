@@ -143,5 +143,10 @@ PrefabInstance:
       propertyPath: sprite
       value: 
       objectReference: {fileID: 2800000, guid: 11b00a170b13942e1a642ab2ca01a3ef, type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: monName
+      value: Palpitoad
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}
