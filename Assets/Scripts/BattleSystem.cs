@@ -5,11 +5,9 @@ using UnityEngine.UI;
 using System.Linq;
 
 public class BattleSystem : MonoBehaviour{
-    public List<GameObject> partyObjects;
     public List<MonEntity> partyMons;
     public MonEntity activeMon;
 
-    public List<GameObject> enemyPartyObjects;
     public List<MonEntity> enemyParty;
     public MonEntity enemyMon;
 
@@ -17,28 +15,18 @@ public class BattleSystem : MonoBehaviour{
 
     void Start() {
         // UI setup
+        Instantiate(
+            (GameObject) Resources.Load("UIPrefabs/Menus/BattleMenu")
+        );
         battleMenu = new BattleMenuUI();
         battleMenu.populateMenu();
-        partyMons = partyObjects.Select(monDef =>
-            Instantiate(monDef).GetComponent<MonEntity>()
-        ).ToList();
 
-        partyMons.ForEach(mon => {
+        partyMons.Concat(enemyParty).ToList().ForEach(mon => {
             mon.constructMoves();
             mon.currentHealth = mon.maxHealth;
         });
         battleMenu.updateLineup(partyMons);
         activeMon = partyMons.First();
-        var randomMonPool = new List<string>() {"Beldum", "Charmander", "Croagunk", "Sewaddle", "Shinx", "Tympole"};
-        var enemyDef = Resources
-            .Load<GameObject>(
-                $"MonPrefabs/{randomMonPool[new System.Random().Next(0, randomMonPool.Count)]}"
-            );
-        enemyParty.Add(Instantiate(enemyDef).GetComponent<MonEntity>());
-        enemyParty.ForEach(mon => {
-            mon.constructMoves();
-            mon.currentHealth = mon.maxHealth;
-        });
         enemyMon = enemyParty.First();
 
         // ready mons
