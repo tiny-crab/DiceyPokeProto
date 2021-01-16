@@ -1,35 +1,47 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using System.Collections;
 using System.Linq;
+using UnityEngine;
 
 public class GauntletSystem : MonoBehaviour {
     public List<string> randomMonPool =
         new List<string>() {"Beldum", "Charmander", "Croagunk", "Sewaddle", "Shinx", "Tympole"};
 
-    public BattleSystem currentBattle;
+    public GameObject battleSystemObj;
+    public BattleSystem battleSystem;
     public List<MonEntity> playerParty;
     public List<MonEntity> enemyParty;
 
-    // Start is called before the first frame update
     void Start() {
-        currentBattle = Instantiate(
-            (GameObject) Resources.Load("ScriptObjects/BattleSystem")
-        ).GetComponent<BattleSystem>();
-
-        playerParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
-        currentBattle.partyMons = playerParty;
-
-        enemyParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
-        currentBattle.enemyParty = enemyParty;
-
+        battleSystem = battleSystemObj.GetComponent<BattleSystem>();
+        Debug.Log("Starting GauntletSystem");
     }
 
-    // Update is called once per frame
     void Update() {
+        if (battleSystem.battleComplete) {
+            battleSystem.gameObject.SetActive(false);
+            // go to next state
+            startBattle();
+            battleSystem.gameObject.SetActive(true);
+        }
+    }
 
+    public void startBattle() {
+        Debug.Log("Calling startBattle() in GauntletSystem");
+        playerParty = randomMonPool.getManyRandomElements(2).Select(mon => instantiateMon(mon)).ToList();
+        battleSystem.partyMons = playerParty;
+
+        enemyParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
+        battleSystem.enemyParty = enemyParty;
+
+        battleSystem.startBattle();
     }
 
     public static MonEntity instantiateMon(string monName) {
         return Instantiate(Resources.Load<GameObject>($"MonPrefabs/{monName}")).GetComponent<MonEntity>();
+    }
+
+    IEnumerator WaitASecond() {
+        yield return new WaitForSeconds(1f);
     }
 }
