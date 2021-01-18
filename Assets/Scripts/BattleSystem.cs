@@ -133,7 +133,6 @@ public class BattleSystem : MonoBehaviour{
     }
 
     void endPlayerTurn() {
-
         // do AI turn here
         enemyMon.refreshTurn();
 
