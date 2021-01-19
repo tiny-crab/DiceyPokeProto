@@ -158,6 +158,20 @@ public class Move {
             .Where(move => move.name == moveName).First();
     }
 
+    public Move getMoveParent(string moveName) {
+        var moveParent =  this.GetType()
+            .GetFields(BindingFlags.Public | BindingFlags.Static)
+            .Where(field => field.FieldType == typeof(Move))
+            .Select(field => (Move) field.GetValue(null))
+            .Where(move => move.evolvedMoveName == moveName).ToList();
+
+        if (moveParent.Count == 1) {
+            return moveParent.First();
+        } else {
+            return null;
+        }
+    }
+
     public string name;
     public string desc;
     public int damage;

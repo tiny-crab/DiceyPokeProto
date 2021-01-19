@@ -66,6 +66,7 @@ public class BattleMenu : MonoBehaviour
     void Update() {
         if (activePlayerMon != null) { updatePlayerMon(); }
         if (activeEnemyMon != null) { updateEnemyMon(); }
+        if (playerPartyMons != null) { updateLineup(); }
     }
 
     void updatePlayerMon() {
@@ -131,6 +132,20 @@ public class BattleMenu : MonoBehaviour
                 (float) (activeEnemyMon.currentEnergy - activeEnemyMon.maxEnergy) / (float) 100;
         } else {
             overloadBar.GetComponent<Image>().fillAmount = 0;
+        }
+    }
+
+    void updateLineup() {
+        for (int i = 0; i < playerPartyMons.Count; i++ ) {
+            playerPartySlots[i].GetComponent<Image>().sprite = Sprite.Create(
+                playerPartyMons[i].sprite,
+                new Rect(0.0f, 0.0f, playerPartyMons[i].sprite.width, playerPartyMons[i].sprite.height),
+                new Vector2(0.5f, 0.5f),
+                100.0f
+            );
+        }
+        for (var i = playerPartyMons.Count; i < 6; i++) {
+            playerPartySlots[i].SetActive(false);
         }
     }
 }

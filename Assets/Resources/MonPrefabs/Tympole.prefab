@@ -12,6 +12,67 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tympole
       objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 2800000, guid: 8b524ab4af40c420094e1cb8cbcda290, type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: monName
+      value: Tympole
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: maxHealth
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: maxEnergy
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.data[0]
+      value: Tackle,1
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: currentHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: currentEnergy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.data[1]
+      value: Aqua Ring,2
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: learnableMovesConfig.Array.data[2]
+      value: Rain Dance,2
+      objectReference: {fileID: 0}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionPrefab
+      value: 
+      objectReference: {fileID: 6364104381851578553, guid: 300a5a8c9744e40ea8eb63cc96bed79d,
+        type: 3}
+    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
+        type: 3}
+      propertyPath: nextEvolutionLevel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5500082171348234927, guid: 66030940275a649d88de313bf0f99ff9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -116,67 +177,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: sprite
-      value: 
-      objectReference: {fileID: 2800000, guid: 8b524ab4af40c420094e1cb8cbcda290, type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: monName
-      value: Tympole
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: maxHealth
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: maxEnergy
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.data[0]
-      value: Tackle,1
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: currentHealth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: currentEnergy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.data[1]
-      value: Aqua Ring,1
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: learnableMovesConfig.Array.data[2]
-      value: Rain Dance,1
-      objectReference: {fileID: 0}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: nextEvolutionPrefab
-      value: 
-      objectReference: {fileID: 6364104381851578553, guid: 300a5a8c9744e40ea8eb63cc96bed79d,
-        type: 3}
-    - target: {fileID: -15862012083493902, guid: 66030940275a649d88de313bf0f99ff9,
-        type: 3}
-      propertyPath: nextEvolutionLevel
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66030940275a649d88de313bf0f99ff9, type: 3}

@@ -33,6 +33,10 @@ public class BattleSystem : MonoBehaviour{
         if (enemyMon.currentHealth <= 0) {
             // battleMenuRootUI.SetActive(false);
             battleComplete = true;
+            partyMons.ForEach(mon => mon.participatedInBattle = true);
+            partyMons
+                .Where(mon => mon.participatedInBattle).ToList()
+                .ForEach(mon => mon.currentLevel++);
         }
     }
 

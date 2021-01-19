@@ -1,22 +1,21 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveLearnMenu : MonoBehaviour
 {
     // UI Elements
-    GameObject rootUI;
+    public GameObject rootUI;
 
-    GameObject monSprite;
-    List<GameObject> moveLearnButtons;
+    public GameObject monSprite;
+    public List<GameObject> moveLearnButtons;
 
     // Underlying Model
-    MonEntity activeMon;
+    public MonEntity activeMon;
+    public List<Move> offeredMoves;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         rootUI = GameObject.Find("MoveLearnMenu");
         monSprite = rootUI.transform.Find("MonSprite").gameObject;
         moveLearnButtons =
@@ -24,11 +23,31 @@ public class MoveLearnMenu : MonoBehaviour
             .Select(number => GameObject.Find($"MoveLearnButton{number}").gameObject)
             .ToList();
 
+        this.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        monSprite.GetComponent<Image>().sprite = Sprite.Create(
+                activeMon.sprite,
+                new Rect(0.0f, 0.0f, activeMon.sprite.width, activeMon.sprite.height),
+                new Vector2(0.5f, 0.5f),
+                100.0f
+            );
+        for (int i = 0; i < moveLearnButtons.Count; i++) {
+            moveLearnButtons[i].transform.Find("MoveName").GetComponent<Text>().text = offeredMoves[i].name;
+            moveLearnButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {offeredMoves[i].cost}";
+            moveLearnButtons[i].transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{offeredMoves[i].overloadCost}";
+            var moveParent = new Move().getMoveParent(offeredMoves[i].name);
+            var prevolution = moveLearnButtons[i].transform.Find($"MoveLearnPrevolution");
+            prevolution.gameObject.SetActive(true);
+            if (moveParent != null) {
+                prevolution.transform.Find("MoveName").GetComponent<Text>().text = moveParent.name;
+                prevolution.transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {moveParent.cost}";
+                prevolution.transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{moveParent.overloadCost}";
+            } else {
+                prevolution.gameObject.SetActive(false);
+            }
+        }
 
     }
 }

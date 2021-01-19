@@ -16,10 +16,11 @@ public class MonEntity : MonoBehaviour {
     public GameObject nextEvolutionPrefab;
     public int nextEvolutionLevel;
     public List<string> learnableMovesConfig; //formatted "<MoveName>,<LevelToLearn>"
-    List<KeyValuePair<int, Move>> learnableMoves = new List<KeyValuePair<int, Move>>();
+    public List<KeyValuePair<int, Move>> learnableMoves = new List<KeyValuePair<int, Move>>();
 
     // mon instance
     public int currentLevel = 1;
+    public bool participatedInBattle = false;
     public int currentHealth;
     public int currentEnergy;
     public int remainingActions = 1;
