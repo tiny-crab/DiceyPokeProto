@@ -29,7 +29,7 @@ public class MoveLearnSystem : MonoBehaviour
         rootUI.SetActive(true);
 
         if (party != null) {
-            remaining.AddRange(party);
+            remaining = party.Where(mon => mon.learnableMoves.Select(pair => pair.Key).Contains(mon.currentLevel)).ToList();
             offerMoves();
 
             for (var i = 0; i < moveLearnMenu.moveLearnButtons.Count; i++) {
