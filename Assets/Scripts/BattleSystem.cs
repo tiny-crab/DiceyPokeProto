@@ -105,7 +105,11 @@ public class BattleSystem : MonoBehaviour{
                     moveToExecute.extraEffects(attacker, target, overloadValue);
                 }
                 // don't evolve move if it doesn't hit
-                if (overloadValue >= moveToExecute.evolveThreshold && moveToExecute.evolvedMoveName != "") {
+                if (
+                    overloadValue >= moveToExecute.evolveThreshold &&
+                    moveToExecute.evolvedMoveName != "" &&
+                    attacker.enabledOverloadMoves.Select(move => move.name).Contains(moveToExecute.evolvedMoveName)
+                ) {
                     attacker.activeMoves[moveIndex] = new Move().getMoveByName(moveToExecute.evolvedMoveName);
                 }
             } else {

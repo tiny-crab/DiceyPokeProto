@@ -25,6 +25,7 @@ public class MonEntity : MonoBehaviour {
     public int currentEnergy;
     public int remainingActions = 1;
     public List<Move> activeMoves;
+    public List<Move> enabledOverloadMoves = new List<Move>();
     public int attackStack = 0;
     public int defenseStack = 0;
 

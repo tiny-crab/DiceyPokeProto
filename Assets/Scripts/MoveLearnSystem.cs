@@ -63,7 +63,13 @@ public class MoveLearnSystem : MonoBehaviour
     }
 
     public void learnMove(MonEntity activeMon, Move move) {
-        activeMon.activeMoves.Add(move);
+        var moveParent = new Move().getMoveParent(move.name);
+        if (moveParent == null) {
+            activeMon.activeMoves.Add(move);
+        } else {
+            activeMon.enabledOverloadMoves.Add(move);
+        }
+
         remaining.RemoveAt(0);
     }
 

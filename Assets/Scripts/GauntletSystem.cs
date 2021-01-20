@@ -53,7 +53,6 @@ public class GauntletSystem : MonoBehaviour {
         Debug.Log("Calling startBattle() in GauntletSystem");
         battleSystem.partyMons = playerParty;
 
-
         battleSystem.enemyParty = enemyParty;
 
         battleSystem.gameObject.SetActive(true);
