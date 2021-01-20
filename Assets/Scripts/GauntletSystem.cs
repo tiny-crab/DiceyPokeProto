@@ -26,6 +26,8 @@ public class GauntletSystem : MonoBehaviour {
         moveLearnSystem = moveLearnSystemObj.GetComponent<MoveLearnSystem>();
 
         playerParty = new List<string>() {"Charmander", "Sewaddle"}.Select(mon => instantiateMon(mon)).ToList();
+        enemyParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
+        playerParty.Concat(enemyParty).ToList().ForEach(mon => mon.constructMoves());
         startBattle();
     }
 
@@ -51,7 +53,7 @@ public class GauntletSystem : MonoBehaviour {
         Debug.Log("Calling startBattle() in GauntletSystem");
         battleSystem.partyMons = playerParty;
 
-        enemyParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
+
         battleSystem.enemyParty = enemyParty;
 
         battleSystem.gameObject.SetActive(true);

@@ -69,7 +69,7 @@ public class MonEntity : MonoBehaviour {
         var minBound = Mathf.Min(bottomBound, maxEnergy);
         var maxBound =  Mathf.Max(bottomBound, maxEnergy + Mathf.CeilToInt(0.2f * maxEnergy * attackStack) + 1);
         var generatedEnergy = new System.Random().Next(minBound, maxBound);
-        Mathf.CeilToInt(generatedEnergy /= 1 + paralysisStack);
+        generatedEnergy = Mathf.CeilToInt((float) generatedEnergy / (1 + paralysisStack));
         return generatedEnergy;
     }
 

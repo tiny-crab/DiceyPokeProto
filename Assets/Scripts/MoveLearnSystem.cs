@@ -11,7 +11,7 @@ public class MoveLearnSystem : MonoBehaviour
     public MoveLearnMenu moveLearnMenu;
 
     public List<MonEntity> party;
-    public List<MonEntity> remaining;
+    public List<MonEntity> remaining = new List<MonEntity>();
     public MonEntity activeMon;
     public List<Move> movePool;
     public List<Move> offeredMoves;
@@ -28,10 +28,9 @@ public class MoveLearnSystem : MonoBehaviour
         completed = false;
         rootUI.SetActive(true);
 
-        offerMoves();
-
         if (party != null) {
-            remaining = party;
+            remaining.AddRange(party);
+            offerMoves();
 
             for (var i = 0; i < moveLearnMenu.moveLearnButtons.Count; i++) {
                 var copyvar = i; // needed to save i index in lambda delegation
@@ -50,7 +49,7 @@ public class MoveLearnSystem : MonoBehaviour
     }
 
     public void offerMoves() {
-        activeMon = party.First();
+        activeMon = remaining.First();
         moveLearnMenu.activeMon = activeMon;
         movePool = activeMon.learnableMoves
             .Where(moveConfig => moveConfig.Key == activeMon.currentLevel)
@@ -63,6 +62,7 @@ public class MoveLearnSystem : MonoBehaviour
 
     public void learnMove(MonEntity activeMon, Move move) {
         activeMon.activeMoves.Add(move);
+        remaining.RemoveAt(0);
     }
 
     void Update() {

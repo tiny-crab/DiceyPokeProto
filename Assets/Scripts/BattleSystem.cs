@@ -47,7 +47,6 @@ public class BattleSystem : MonoBehaviour{
         battleMenuRootUI.SetActive(true);
 
         partyMons.Concat(enemyParty).ToList().ForEach(mon => {
-            mon.constructMoves();
             mon.currentHealth = mon.maxHealth;
         });
         battleMenu.playerPartyMons = partyMons;
