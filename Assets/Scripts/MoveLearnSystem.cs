@@ -49,15 +49,17 @@ public class MoveLearnSystem : MonoBehaviour
     }
 
     public void offerMoves() {
-        activeMon = remaining.First();
-        moveLearnMenu.activeMon = activeMon;
-        movePool = activeMon.learnableMoves
-            .Where(moveConfig => moveConfig.Key == activeMon.currentLevel)
-            .Select(pair => pair.Value).ToList();
-        offeredMoves = movePool.getManyRandomElements(2);
-        offeredMoves.ForEach(offeredMove => movePool.Remove(offeredMove));
-        moveLearnMenu.offeredMoves = offeredMoves;
-        Debug.Log($"Offering {offeredMoves[0].name} and {offeredMoves[1].name}");
+        if (remaining.Count > 0) {
+            activeMon = remaining.First();
+            moveLearnMenu.activeMon = activeMon;
+            movePool = activeMon.learnableMoves
+                .Where(moveConfig => moveConfig.Key == activeMon.currentLevel)
+                .Select(pair => pair.Value).ToList();
+            offeredMoves = movePool.getManyRandomElements(2);
+            offeredMoves.ForEach(offeredMove => movePool.Remove(offeredMove));
+            moveLearnMenu.offeredMoves = offeredMoves;
+            Debug.Log($"Offering {offeredMoves[0].name} and {offeredMoves[1].name}");
+        }
     }
 
     public void learnMove(MonEntity activeMon, Move move) {

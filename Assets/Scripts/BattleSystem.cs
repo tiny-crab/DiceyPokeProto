@@ -23,6 +23,9 @@ public class BattleSystem : MonoBehaviour{
     }
 
     void Update() {
+        battleMenu.activePlayerMon = activeMon;
+        battleMenu.activeEnemyMon = enemyMon;
+
         if (
             activeMon.remainingActions <= 0 ||
             activeMon.currentEnergy < activeMon.activeMoves.Select(move => move.cost).Min()
