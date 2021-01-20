@@ -37,6 +37,7 @@ public class MoveLearnMenu : MonoBehaviour
             moveLearnButtons[i].transform.Find("MoveName").GetComponent<Text>().text = offeredMoves[i].name;
             moveLearnButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {offeredMoves[i].cost}";
             moveLearnButtons[i].transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{offeredMoves[i].overloadCost}";
+            moveLearnButtons[i].transform.Find("MoveDescToolTip").Find("Value").GetComponent<Text>().text = offeredMoves[i].desc;
             var moveParent = new Move().getMoveParent(offeredMoves[i].name);
             var prevolution = moveLearnButtons[i].transform.Find($"MoveLearnPrevolution");
             prevolution.gameObject.SetActive(true);
