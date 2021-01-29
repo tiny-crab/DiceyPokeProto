@@ -34,6 +34,13 @@ public class MoveLearnMenu : MonoBehaviour
                 100.0f
             );
         for (int i = 0; i < moveLearnButtons.Count; i++) {
+            var moveTypeTexture = Resources.Load<Texture2D>($"Sprites/types/{offeredMoves[i].type.ToString()}");
+            moveLearnButtons[i].GetComponent<Image>().sprite = Sprite.Create(
+                moveTypeTexture,
+                new Rect(0.0f, 0.0f, moveTypeTexture.width, moveTypeTexture.height),
+                new Vector2(0.5f, 0.5f),
+                100.0f
+            );
             moveLearnButtons[i].transform.Find("MoveName").GetComponent<Text>().text = offeredMoves[i].name;
             moveLearnButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {offeredMoves[i].cost}";
             moveLearnButtons[i].transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{offeredMoves[i].overloadCost}";
@@ -42,6 +49,13 @@ public class MoveLearnMenu : MonoBehaviour
             var prevolution = moveLearnButtons[i].transform.Find($"MoveLearnPrevolution");
             prevolution.gameObject.SetActive(true);
             if (moveParent != null) {
+                var prevoMoveTypeTexture = Resources.Load<Texture2D>($"Sprites/types/{moveParent.type.ToString()}");
+                prevolution.GetComponent<Image>().sprite = Sprite.Create(
+                    prevoMoveTypeTexture,
+                    new Rect(0.0f, 0.0f, prevoMoveTypeTexture.width, prevoMoveTypeTexture.height),
+                    new Vector2(0.5f, 0.5f),
+                    100.0f
+                );
                 prevolution.transform.Find("MoveName").GetComponent<Text>().text = moveParent.name;
                 prevolution.transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {moveParent.cost}";
                 prevolution.transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{moveParent.overloadCost}";

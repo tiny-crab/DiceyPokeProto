@@ -25,7 +25,7 @@ public class MoveLearnSystem : MonoBehaviour
     }
 
     public bool readyToStart() {
-        return Enumerable.Any(party.Where(mon => mon.learnableMoves.Select(pair => pair.Key).Contains(mon.currentLevel));
+        return Enumerable.Any(party.Where(mon => mon.learnableMoves.Select(pair => pair.Key).Contains(mon.currentLevel)));
     }
 
     public void startMoveLearn() {

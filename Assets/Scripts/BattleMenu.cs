@@ -78,6 +78,13 @@ public class BattleMenu : MonoBehaviour
         );
 
         for (var i = 0; i < activePlayerMon.activeMoves.Count; i++) {
+            var moveTypeTexture = Resources.Load<Texture2D>($"Sprites/types/{activePlayerMon.activeMoves[i].type.ToString()}");
+            playerMoveButtons[i].GetComponent<Image>().sprite = Sprite.Create(
+                moveTypeTexture,
+                new Rect(0.0f, 0.0f, moveTypeTexture.width, moveTypeTexture.height),
+                new Vector2(0.5f, 0.5f),
+                100.0f
+            );
             playerMoveButtons[i].transform.Find("MoveName").GetComponent<Text>().text = activePlayerMon.activeMoves[i].name;
             playerMoveButtons[i].transform.Find("EnergyCost").GetComponent<Text>().text = $"Cost: {activePlayerMon.activeMoves[i].cost}";
             playerMoveButtons[i].transform.Find("OverloadCost").Find("Value").GetComponent<Text>().text = $"{activePlayerMon.activeMoves[i].overloadCost}";
