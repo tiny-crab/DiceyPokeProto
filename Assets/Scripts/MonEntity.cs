@@ -50,7 +50,7 @@ public class MonEntity : MonoBehaviour {
     public int healthStack = 0;
     public int actionStack = 0;
 
-    public void constructMoves() {
+    public void constructBaseMoves() {
         foreach (string learnableMoveConfig in learnableMovesConfig) {
             var moveName = learnableMoveConfig.Split(',')[0];
             var level = int.Parse(learnableMoveConfig.Split(',')[1]);

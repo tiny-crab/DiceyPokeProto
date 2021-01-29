@@ -9,29 +9,44 @@ public class GauntletSystem : MonoBehaviour {
 
     public GameObject battleSystemObj;
     public BattleSystem battleSystem;
-    public List<MonEntity> playerParty;
+    public List<MonEntity> playerParty = new List<MonEntity>();
     public List<MonEntity> enemyParty;
 
     public GameObject moveLearnSystemObj;
     public MoveLearnSystem moveLearnSystem;
 
+    public GameObject chooseMonSystemObj;
+    public ChooseMonSystem chooseMonSystem;
+
     public enum State {
         BATTLE,
-        MOVE_LEARN
+        MOVE_LEARN,
+        CHOOSE_MON
     }
     public State currentState;
 
     void Start() {
         battleSystem = battleSystemObj.GetComponent<BattleSystem>();
         moveLearnSystem = moveLearnSystemObj.GetComponent<MoveLearnSystem>();
+        chooseMonSystem = chooseMonSystemObj.GetComponent<ChooseMonSystem>();
 
-        playerParty = new List<string>() {"Charmander", "Sewaddle"}.Select(mon => instantiateMon(mon)).ToList();
         enemyParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
-        playerParty.Concat(enemyParty).ToList().ForEach(mon => mon.constructMoves());
-        startBattle();
+        playerParty.Concat(enemyParty).ToList().ForEach(mon => mon.constructBaseMoves());
+        startChooseMon();
+        currentState = State.CHOOSE_MON;
     }
 
     void Update() {
+        if (chooseMonSystem.completed && currentState == State.CHOOSE_MON) {
+            // barf
+            chooseMonSystem.gameObject.SetActive(false);
+            chooseMonSystem.rootUI.gameObject.SetActive(false);
+
+            playerParty = chooseMonSystem.party;
+
+            startBattle();
+            currentState = State.BATTLE;
+        }
         if (battleSystem.battleComplete && currentState == State.BATTLE) {
             battleSystem.gameObject.SetActive(false);
             battleSystem.battleMenuRootUI.gameObject.SetActive(false);
@@ -44,8 +59,8 @@ public class GauntletSystem : MonoBehaviour {
             moveLearnSystem.gameObject.SetActive(false);
             moveLearnSystem.rootUI.gameObject.SetActive(false);
 
-            startBattle();
-            currentState = State.BATTLE;
+            startChooseMon();
+            currentState = State.CHOOSE_MON;
         }
     }
 
@@ -66,6 +81,14 @@ public class GauntletSystem : MonoBehaviour {
         moveLearnSystem.gameObject.SetActive(true);
         moveLearnSystem.rootUI.gameObject.SetActive(true);
         moveLearnSystem.startMoveLearn();
+    }
+
+    public void startChooseMon() {
+        Debug.Log("Calling startChooseMon() in GauntletSystem");
+        chooseMonSystem.party = playerParty;
+        chooseMonSystem.gameObject.SetActive(true);
+        chooseMonSystem.rootUI.gameObject.SetActive(true);
+        chooseMonSystem.startChooseMon();
     }
 
     public static MonEntity instantiateMon(string monName) {

@@ -137,6 +137,7 @@ public class BattleMenu : MonoBehaviour
 
     void updateLineup() {
         for (int i = 0; i < playerPartyMons.Count; i++ ) {
+            playerPartySlots[i].SetActive(true);
             playerPartySlots[i].GetComponent<Image>().sprite = Sprite.Create(
                 playerPartyMons[i].sprite,
                 new Rect(0.0f, 0.0f, playerPartyMons[i].sprite.width, playerPartyMons[i].sprite.height),

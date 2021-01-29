@@ -66,6 +66,8 @@ public class BattleSystem : MonoBehaviour{
         for (var i = 0; i < activeMon.activeMoves.Count; i++) {
             var copyvar = i; // needed to save i index in lambda delegation
             battleMenu.playerMoveButtons[i].GetComponent<Button>()
+                .onClick.RemoveAllListeners();
+            battleMenu.playerMoveButtons[i].GetComponent<Button>()
                 .onClick.AddListener(
                     delegate {doMove(activeMon, enemyMon, activeMon.activeMoves[copyvar]);}
                 );
@@ -80,13 +82,17 @@ public class BattleSystem : MonoBehaviour{
             );
         }
 
-        for (var i = 0; i < partyMons.Count; i++) {
+        for (var i = 0; i < Mathf.Max(partyMons.Count, 6); i++) {
             var copyvar = i; // needed to save i index in lambda delegation
+            battleMenu.playerPartySlots[copyvar].GetComponent<Button>()
+                .onClick.RemoveAllListeners();
             battleMenu.playerPartySlots[copyvar].GetComponent<Button>()
                 .onClick.AddListener(
                     delegate {switchMon(partyMons[copyvar]);}
                 );
         }
+
+        Debug.Log($"Party has: {string.Join(",", partyMons.Select(mon => mon.name).ToList())}");
 
         // battleMenu.updatePlayerMon(activeMon);
         // battleMenu.updateEnemyMon(enemyMon);

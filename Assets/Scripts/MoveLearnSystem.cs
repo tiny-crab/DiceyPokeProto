@@ -24,6 +24,10 @@ public class MoveLearnSystem : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    public bool readyToStart() {
+        return Enumerable.Any(party.Where(mon => mon.learnableMoves.Select(pair => pair.Key).Contains(mon.currentLevel));
+    }
+
     public void startMoveLearn() {
         completed = false;
         rootUI.SetActive(true);
@@ -34,6 +38,7 @@ public class MoveLearnSystem : MonoBehaviour
 
             for (var i = 0; i < moveLearnMenu.moveLearnButtons.Count; i++) {
                 var copyvar = i; // needed to save i index in lambda delegation
+                moveLearnMenu.moveLearnButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
                 moveLearnMenu.moveLearnButtons[i].GetComponent<Button>()
                     .onClick
                     .AddListener(
