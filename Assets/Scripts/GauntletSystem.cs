@@ -18,6 +18,9 @@ public class GauntletSystem : MonoBehaviour {
     public GameObject chooseMonSystemObj;
     public ChooseMonSystem chooseMonSystem;
 
+    public GameObject specialRulesSystemObj;
+    public SpecialRulesSystem specialRulesSystem;
+
     public enum State {
         BATTLE,
         MOVE_LEARN,
@@ -29,6 +32,7 @@ public class GauntletSystem : MonoBehaviour {
         battleSystem = battleSystemObj.GetComponent<BattleSystem>();
         moveLearnSystem = moveLearnSystemObj.GetComponent<MoveLearnSystem>();
         chooseMonSystem = chooseMonSystemObj.GetComponent<ChooseMonSystem>();
+        specialRulesSystem = specialRulesSystemObj.GetComponent<SpecialRulesSystem>();
 
         enemyParty = new List<MonEntity>() { instantiateMon(randomMonPool.getRandomElement()) };
         playerParty.Concat(enemyParty).ToList().ForEach(mon => mon.constructBaseMoves());

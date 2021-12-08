@@ -184,7 +184,6 @@ public class Move {
     public string evolvedMoveName;
     public Action<MonEntity, MonEntity, int> extraEffects;
 
-
     public Move(
         string name="",
         string desc="",
