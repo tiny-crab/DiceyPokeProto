@@ -11,9 +11,13 @@ namespace DiceyPokeProto {
         // 88  88  88 `8b  d8' 88  V888 db   8D 
         // YP  YP  YP  `Y88P'  VP   V8P `8888Y' 
         public GameObject charmander;
+        public GameObject shinx;
+        public GameObject beldum;
 
         public void Awake() {
             charmander = Resources.Load<GameObject>("MonPrefabs/Charmander");
+            shinx = Resources.Load<GameObject>("MonPrefabs/Shinx");
+            beldum = Resources.Load<GameObject>("MonPrefabs/Beldum");
         }
     }
 }

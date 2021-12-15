@@ -1,36 +1,32 @@
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
 namespace DiceyPokeProto {
     public class BattleFormation {
         public FormationType type = FormationTypes.TripleFormation;
-        public IntReactiveProperty currentFormationIndex = new IntReactiveProperty(0);
-        public List<int> currentFormationCoords;
         public ReactiveDictionary<Mon, int> mons = new ReactiveDictionary<Mon, int>();
         public List<GameObject> battleNodes = new List<GameObject>(); 
 
         public BattleFormation(FormationType type = null) {
-            type ??= FormationTypes.TripleFormation;
-            currentFormationIndex.AsObservable()
-                .Subscribe(newIndex => currentFormationCoords = type.formationCoords[newIndex]);
-            currentFormationCoords = type.formationCoords[currentFormationIndex.Value];
+            this.type = type ?? FormationTypes.TripleFormation;
         }
 
         public void AddToFormation(Mon mon) {
             if (mons.Count < type.maxMons) {
-                mons[mon] = currentFormationCoords.First(i => !mons.Values.Contains(i));
+                var firstPosition = mons.Values.Count > 0 ? mons.Values.Min() : 0;
+                var allPossibleFormRotations = Enumerable.Range(0, type.diffRotations).Select(formationCoordsIndex => {
+                    return Enumerable.Range(0, type.maxMons)
+                        .Select(formationSpaceIndex => formationSpaceIndex * type.diffRotations + formationCoordsIndex);
+                });
+                var currentFormRotation = allPossibleFormRotations.First(i => i.Contains(firstPosition));
+                mons[mon] = currentFormRotation.First(i => !mons.Values.Contains(i));
             }
         }
 
         public void RotateClockwise() {
-            if (currentFormationIndex.Value == type.formationCoords.Count - 1) {
-                currentFormationIndex.Value = 0;
-            }
-            else {
-                currentFormationIndex.Value++;
-            }
             mons.Keys.ToList().ForEach(mon => {
                 if (mons[mon] == 5) {
                     mons[mon] = 0;
@@ -43,12 +39,6 @@ namespace DiceyPokeProto {
         }
 
         public void RotateCounterClockwise() {
-            if (currentFormationIndex.Value == 0) {
-                currentFormationIndex.Value = type.formationCoords.Count - 1;
-            }
-            else {
-                currentFormationIndex.Value--;
-            }
             mons.Keys.ToList().ForEach(mon => {
                 if (mons[mon] == 0) {
                     mons[mon] = 5;
@@ -62,22 +52,24 @@ namespace DiceyPokeProto {
 
         public void UpdateMonPosition() {
             mons.ToList()
-                .ForEach(kvp => kvp.Key.instance.transform.position = battleNodes[kvp.Value].transform.position);
+                .ForEach(kvp => kvp.Key.instance.transform.DOMove(battleNodes[kvp.Value].transform.position, 0.3f));
         }
     }
 
     public class FormationType {
-        public int maxMons;
-        public List<List<int>> formationCoords;
+        // the number of mons that can make up this formation
+        public int maxMons {
+            get { return totalNodes / diffRotations; }
+        }
+        // the number of total nodes in this formation, containing all rotation types
+        public int totalNodes;
+        public int diffRotations;
     }
 
     public static class FormationTypes {
         public static FormationType TripleFormation = new FormationType {
-            maxMons = 3,
-            formationCoords = new List<List<int>> {
-                new List<int> {0, 2, 4},
-                new List<int> {1, 3, 5},
-            }
+            totalNodes = 6,
+            diffRotations = 2,
         };
     }
 }
