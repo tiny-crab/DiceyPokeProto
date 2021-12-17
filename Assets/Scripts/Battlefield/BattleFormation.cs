@@ -1,58 +1,68 @@
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
 namespace DiceyPokeProto {
     public class BattleFormation {
-        public FormationType type;
+        public ReactiveProperty<FormationType> type = new ReactiveProperty<FormationType>(FormationTypes.DuoFormation);
         public ReactiveDictionary<Mon, int> mons = new ReactiveDictionary<Mon, int>();
-        public List<GameObject> battleNodes = new List<GameObject>(); 
 
-        public BattleFormation(FormationType type = null) {
-            this.type = type ?? FormationTypes.QuintetFormation;
-        }
+        public GameObject gameObject;
+        public List<GameObject> battleNodes = new List<GameObject>();
 
         public void AddToFormation(Mon mon) {
-            if (mons.Count < type.maxMons) {
-                var firstPosition = mons.Values.Count > 0 ? mons.Values.Min() : 0;
-                var allPossibleFormRotations = Enumerable.Range(0, type.diffRotations).Select(formationCoordsIndex => {
-                    return Enumerable.Range(0, type.maxMons)
-                        .Select(formationSpaceIndex => formationSpaceIndex * type.diffRotations + formationCoordsIndex);
-                });
-                var currentFormRotation = allPossibleFormRotations.First(i => i.Contains(firstPosition));
-                mons[mon] = currentFormRotation.First(i => !mons.Values.Contains(i));
+            switch (mons.Count + 1) {
+                case 1:
+                case 2:
+                    type.Value = FormationTypes.DuoFormation;
+                    break;
+                case 3:
+                    type.Value = FormationTypes.TrioFormation;
+                    break;
+                case 4:
+                    type.Value = FormationTypes.QuartetFormation;
+                    break;
+                case 5:
+                    type.Value = FormationTypes.QuintetFormation;
+                    break;
             }
+
+            if (mons.Count < 5) {
+                mons[mon] = NextPlaceableBattleNodeIndex();
+            }
+        }
+
+        public int NextPlaceableBattleNodeIndex() {
+            var firstPosition = mons.Values.Count > 0 ? mons.Values.Min() : 0;
+            var allPossibleFormRotations = Enumerable.Range(0, type.Value.diffRotations).Select(formationCoordsIndex => {
+                return Enumerable.Range(0, type.Value.maxMons)
+                    .Select(formationSpaceIndex => formationSpaceIndex * type.Value.diffRotations + formationCoordsIndex);
+            });
+            var currentFormRotation = allPossibleFormRotations.First(i => i.Contains(firstPosition));
+            return currentFormRotation.First(i => !mons.Values.Contains(i));
         }
 
         public void RotateClockwise() {
             mons.Keys.ToList().ForEach(mon => {
-                if (mons[mon] == type.totalNodes - 1) {
+                if (mons[mon] == type.Value.totalNodes - 1) {
                     mons[mon] = 0;
                 }
                 else {
                     mons[mon]++;
                 }
             });
-            UpdateMonPosition();
         }
 
         public void RotateCounterClockwise() {
             mons.Keys.ToList().ForEach(mon => {
                 if (mons[mon] == 0) {
-                    mons[mon] = type.totalNodes - 1;
+                    mons[mon] = type.Value.totalNodes - 1;
                 }
                 else {
                     mons[mon]--;
                 }
             });
-            UpdateMonPosition();
-        }
-
-        public void UpdateMonPosition() {
-            mons.ToList()
-                .ForEach(kvp => kvp.Key.instance.transform.DOMove(battleNodes[kvp.Value].transform.position, 0.3f));
         }
     }
 

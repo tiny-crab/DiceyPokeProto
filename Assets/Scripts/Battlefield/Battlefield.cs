@@ -1,5 +1,6 @@
 using UniRx;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DiceyPokeProto {
@@ -8,7 +9,6 @@ namespace DiceyPokeProto {
         private Datastore _datastore;
 
         private GameObject battlefield;
-        private GameObject leftFormation;
         private GameObject spawnArea;
 
         public void Start() {
@@ -19,7 +19,7 @@ namespace DiceyPokeProto {
                 .Where(e => e.keyCode == KeyCode.R || e.keyCode == KeyCode.E)
                 .Subscribe(e => {
                     if (e.keyCode == KeyCode.R) {
-                        _datastore.leftFormation.RotateClockwise();    
+                        _datastore.leftFormation.RotateClockwise(); 
                     }
                     else {
                         _datastore.leftFormation.RotateCounterClockwise();
@@ -27,16 +27,29 @@ namespace DiceyPokeProto {
                     _datastore.battlefieldEvents.Publish(new RotateFormationEvent {
                         formation = _datastore.leftFormation
                     });
+                    UpdateMonPositions();
                 });
 
             battlefield = GameObject.Find("Battlefield");
-            leftFormation = Instantiate(_prefabs.quintetFormation, battlefield.transform);
-            leftFormation.name = "Left";
-            _datastore.leftFormation.battleNodes = Enumerable.Range(0, FormationTypes.QuintetFormation.totalNodes)
-                .Select(i => leftFormation.transform.Find($"BattleNode{i}").gameObject).ToList();
-            _datastore.leftFormation.type = FormationTypes.QuintetFormation;
             spawnArea = battlefield.transform.Find("SpawnArea").gameObject;
-                
+            
+            _datastore.leftFormation = new BattleFormation();
+            InstantiateFormation(_prefabs.duoFormation, FormationTypes.DuoFormation);
+            _datastore.leftFormation.type.AsObservable().Subscribe(newType => {
+                if (newType == FormationTypes.DuoFormation) {
+                    InstantiateFormation(_prefabs.duoFormation, newType);    
+                } else if (newType == FormationTypes.TrioFormation) {
+                    InstantiateFormation(_prefabs.trioFormation, newType);    
+                } else if (newType == FormationTypes.QuartetFormation) {
+                    InstantiateFormation(_prefabs.quartetFormation, newType);    
+                } else if (newType == FormationTypes.QuintetFormation) {
+                    InstantiateFormation(_prefabs.quintetFormation, newType);    
+                }
+            });
+            
+            _datastore.rightFormation = new BattleFormation();
+            MockInstantiateOpposingFormation(_prefabs.trioFormation, FormationTypes.TrioFormation);
+            
             MockStartBattle();
         }
 
@@ -106,9 +119,44 @@ namespace DiceyPokeProto {
                             _datastore.leftFormation.AddToFormation(tympole);
                             break;
                     }
-                    /// bad bad bad bad bad dont do this
-                    _datastore.leftFormation.UpdateMonPosition();
+                    UpdateMonPositions();
                 });
+        }
+
+        private void InstantiateFormation(GameObject formationPrefab, FormationType type) {
+            Destroy(_datastore.leftFormation.gameObject);
+            _datastore.leftFormation.gameObject = Instantiate(formationPrefab, battlefield.transform);
+            _datastore.leftFormation.gameObject.name = "Left";
+
+            _datastore.leftFormation.battleNodes = 
+                Enumerable.Range(0, type.totalNodes)
+                    .Select(i => _datastore.leftFormation.gameObject.transform.Find($"BattleNode{i}").gameObject)
+                    .ToList();
+        }
+
+        private void MockInstantiateOpposingFormation(GameObject formationPrefab, FormationType type) {
+            _datastore.rightFormation.gameObject = Instantiate(formationPrefab, battlefield.transform);
+            _datastore.rightFormation.gameObject.name = "Right";
+
+            _datastore.rightFormation.battleNodes = 
+                Enumerable.Range(0, type.totalNodes)
+                    .Select(i => _datastore.rightFormation.gameObject.transform.Find($"BattleNode{i}").gameObject)
+                    .ToList();
+            
+            _datastore.rightFormation.battleNodes.ForEach(node => {
+                node.transform.position = Vector3.Scale(node.transform.position, new Vector3(-1, 1, 1));
+            });
+            
+        }
+
+        private void UpdateMonPositions() {
+            _datastore.leftFormation.mons.ToList()
+                .ForEach(kvp => 
+                    kvp.Key.instance.transform.DOMove(
+                        _datastore.leftFormation.battleNodes[kvp.Value].transform.position,
+                        0.3f
+                    )
+                );
         }
     }
 }

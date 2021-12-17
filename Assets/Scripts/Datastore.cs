@@ -20,7 +20,8 @@ namespace DiceyPokeProto {
         // 88~~~b. 88~~~88    88       88    88      88~~~~~ 88~~~      88    88~~~~~ 88      88   88 
         // 88   8D 88   88    88       88    88booo. 88.     88        .88.   88.     88booo. 88  .8D 
         // Y8888P' YP   YP    YP       YP    Y88888P Y88888P YP      Y888888P Y88888P Y88888P Y8888D' 
-        public BattleFormation leftFormation = new BattleFormation();
+        public BattleFormation leftFormation;
+        public BattleFormation rightFormation;
         public MessageBroker battlefieldEvents = new MessageBroker();
         
         
