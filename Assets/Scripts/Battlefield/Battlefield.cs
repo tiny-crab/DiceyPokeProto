@@ -30,9 +30,11 @@ namespace DiceyPokeProto {
                 });
 
             battlefield = GameObject.Find("Battlefield");
-            leftFormation = battlefield.transform.Find("Left").gameObject;
-            _datastore.leftFormation.battleNodes = Enumerable.Range(0, 6)
+            leftFormation = Instantiate(_prefabs.quintetFormation, battlefield.transform);
+            leftFormation.name = "Left";
+            _datastore.leftFormation.battleNodes = Enumerable.Range(0, FormationTypes.QuintetFormation.totalNodes)
                 .Select(i => leftFormation.transform.Find($"BattleNode{i}").gameObject).ToList();
+            _datastore.leftFormation.type = FormationTypes.QuintetFormation;
             spawnArea = battlefield.transform.Find("SpawnArea").gameObject;
                 
             MockStartBattle();
@@ -78,6 +80,30 @@ namespace DiceyPokeProto {
                             };
                             _datastore.activeTeam.Add(shinx);
                             _datastore.leftFormation.AddToFormation(shinx);
+                            break;
+                        case 3:
+                            var sewaddle = new Mon {
+                                name = "Gucci",
+                                prefab = _prefabs.sewaddle,
+                                instance = Instantiate(
+                                    _prefabs.sewaddle,
+                                    spawnArea.transform.position, 
+                                    Quaternion.identity)
+                            };
+                            _datastore.activeTeam.Add(sewaddle);
+                            _datastore.leftFormation.AddToFormation(sewaddle);
+                            break;
+                        case 4:
+                            var tympole = new Mon {
+                                name = "Greg",
+                                prefab = _prefabs.tympole,
+                                instance = Instantiate(
+                                    _prefabs.tympole,
+                                    spawnArea.transform.position, 
+                                    Quaternion.identity)
+                            };
+                            _datastore.activeTeam.Add(tympole);
+                            _datastore.leftFormation.AddToFormation(tympole);
                             break;
                     }
                     /// bad bad bad bad bad dont do this

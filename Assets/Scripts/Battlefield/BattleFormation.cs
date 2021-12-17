@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace DiceyPokeProto {
     public class BattleFormation {
-        public FormationType type = FormationTypes.TripleFormation;
+        public FormationType type;
         public ReactiveDictionary<Mon, int> mons = new ReactiveDictionary<Mon, int>();
         public List<GameObject> battleNodes = new List<GameObject>(); 
 
         public BattleFormation(FormationType type = null) {
-            this.type = type ?? FormationTypes.TripleFormation;
+            this.type = type ?? FormationTypes.QuintetFormation;
         }
 
         public void AddToFormation(Mon mon) {
@@ -28,7 +28,7 @@ namespace DiceyPokeProto {
 
         public void RotateClockwise() {
             mons.Keys.ToList().ForEach(mon => {
-                if (mons[mon] == 5) {
+                if (mons[mon] == type.totalNodes - 1) {
                     mons[mon] = 0;
                 }
                 else {
@@ -41,7 +41,7 @@ namespace DiceyPokeProto {
         public void RotateCounterClockwise() {
             mons.Keys.ToList().ForEach(mon => {
                 if (mons[mon] == 0) {
-                    mons[mon] = 5;
+                    mons[mon] = type.totalNodes - 1;
                 }
                 else {
                     mons[mon]--;
@@ -58,18 +58,35 @@ namespace DiceyPokeProto {
 
     public class FormationType {
         // the number of mons that can make up this formation
-        public int maxMons {
-            get { return totalNodes / diffRotations; }
-        }
+        public int maxMons => totalNodes / diffRotations;
         // the number of total nodes in this formation, containing all rotation types
         public int totalNodes;
         public int diffRotations;
     }
 
     public static class FormationTypes {
-        public static FormationType TripleFormation = new FormationType {
+        public static FormationType DuoFormation = new FormationType {
+            totalNodes = 4,
+            diffRotations = 2,
+        };
+        public static FormationType TrioFormation = new FormationType {
             totalNodes = 6,
             diffRotations = 2,
+        };
+        public static FormationType QuartetFormation = new FormationType {
+            totalNodes = 8,
+            diffRotations = 2,
+        };
+        public static FormationType QuintetFormation = new FormationType {
+            totalNodes = 10,
+            diffRotations = 2,
+        };
+        
+        public static List<FormationType> allTypes = new List<FormationType> {
+            DuoFormation,
+            TrioFormation,
+            QuartetFormation,
+            QuintetFormation,
         };
     }
 }
